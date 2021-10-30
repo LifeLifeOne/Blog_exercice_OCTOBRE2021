@@ -22,7 +22,7 @@
     />
     <!-- MY CSS -->
     <link
-    href="../assets/css/style.css"
+    href="../Assets/css/style.css"
     rel="stylesheet"
     />
 </head>
