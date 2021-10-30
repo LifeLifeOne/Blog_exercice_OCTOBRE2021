@@ -2,7 +2,7 @@
     
     <!-- Chemin d'arianne -->
     <nav>
-        <ol class="breadcrumb border-none bg-white">
+        <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
             <li class="breadcrumb-item"><a href="#"><?= htmlspecialchars($post['category']) ?></a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($post['title']) ?></li>
@@ -12,7 +12,7 @@
     <div class="row d-flex justify-content-between">
 
         <!-- EN-TETE ARTICLE  -->
-        <div class="col-md-7">
+        <div class="col-md-7 bg-white rounded p-4 border">
             <h1 class="fs-1 mb-3"><?= htmlspecialchars($post['title']) ?></h1>
             <h3 clas="fs-1">Dans la catégorie: <span class="text-danger"><?= htmlspecialchars($post['category']) ?></span></h3>
             <span class="d-block"><i class="fas fa-glasses me-2"></i><em>Rédigé par <b><?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?></b> le <?= htmlspecialchars($post['created_at']) ?></em></span>
@@ -21,7 +21,7 @@
             <p class="my-4 opacity-75"><?= htmlspecialchars($post['content']) ?></p>
         </div>
 
-        <div class="comments col-md-4 border py-3 rounded border-bottom">
+        <div class="comments bg-white col-md-4 border py-3 rounded border-bottom">
             <strong class="d-block text-center py-2">Liste des commentaires (<?= htmlspecialchars($total_comments['total']) ?>)</strong>
             <hr>
             <div class="comments-container rounded p-3">

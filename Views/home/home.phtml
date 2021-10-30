@@ -12,7 +12,7 @@
         <a href="index.php?page=post&id=<?= intval($post['id']) ?>" class="btn btn-dark">Lire la suite</a>
     </div>
     <div class="card-footer">
-        <span>Rédigé par <b><?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?></b>, le <em><?= htmlspecialchars($post['created_at']) ?></em></span>
+        <span>Rédigé par <b><?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?></b>, <em>le <?= htmlspecialchars($post['created_at']) ?></em></span>
     </div>
 </div>
 <?php endforeach; ?>

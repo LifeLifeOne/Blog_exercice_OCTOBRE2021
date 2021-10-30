@@ -3,7 +3,8 @@
 }
 
 body {
-  line-height: 1.6;
+  line-height: 1.7;
+  background: center / cover no-repeat url("../img/background.svg");
 }
 
 .grid {
@@ -22,10 +23,6 @@ body {
 
 a {
   text-decoration: none;
-}
-
-.breadcrumb {
-  border: none;
 }
 
 .comments {
