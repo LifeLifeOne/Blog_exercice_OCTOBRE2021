@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: top;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.breadcrumb {
+  border: none;
+}
+
+.comments {
+  height: 100%;
+}
+
+.comments-container {
+  height: 28vh;
+  overflow-y: scroll;
+  background-color: rgb(247, 247, 247);
+}
+
+.container-msg {
+  min-height: 60px;
+}
+
+@media screen and (min-width: 750px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-direction: row;
+    gap: 2rem;
+  }
+}

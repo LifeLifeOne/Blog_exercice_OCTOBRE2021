@@ -1,0 +1,30 @@
+<div class="container">
+    <a href="#" class="btn btn-info"><i class="fas fa-plus pe-2"></i>Créer un article</a>
+    <table class="table table-striped">
+        <thead class="bg-dark text-light">
+            <tr>
+                <th>ID</th>
+                <th>Création</th>
+                <th colspan="3">Titre</th>
+                <th>Auteur</th>
+                <th>Catégorie</th>
+                <th class="text-end">Modifier</th>
+                <th class="text-end">Supprimer</th>
+            </tr>
+         </thead>
+        <tbody>
+            <?php foreach ($posts as $post): ?>
+            <tr>
+                <td class="fw-bold"><?= htmlspecialchars($post['id']) ?></td>
+                <td><?= htmlspecialchars($post['created_at']) ?></td>
+                <td colspan="3"><a href="index.php?page=post&id=<?= htmlspecialchars($post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
+                <td><?= htmlspecialchars($post['firstname'])." ".htmlspecialchars($post['lastname']) ?></td>
+                <td><?= htmlspecialchars($post['category']) ?></td>
+                <td class="text-end"><a href="index.php?page=edit" class="link-warning"><i class="fas fa-edit fs-3"></i></a></td>
+                <td class="text-end"><a href="index.php?page=delete" class="link-danger"><i class="fas fa-trash fs-3"></i></a></td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+    <span>Liste des posts classés par ordre chronologique inversé (<b><?= htmlspecialchars($total['total']) ?> <?= ($total['total'] <= 1) ? "article" : "articles" ; ?> au total</b>)</span>
+</div>

@@ -1,0 +1,20 @@
+
+<div class="container grid">
+
+<?php foreach($posts as $post): ?>
+<div class="card shadow-sm rounded mb-3">
+    <div class="card-header">
+        <h4 class="fw-bold"><?= htmlspecialchars($post['title']) ?></h4>
+        <span>Dans la catégorie: <span class="text-danger"><?= htmlspecialchars($post['category']) ?></span></span>
+    </div>
+     <div class="card-body d-flex flex-column justify-content-between">
+        <p class="card-text"><?= htmlspecialchars($post['content']) ?> [...]</p>
+        <a href="index.php?page=post&id=<?= intval($post['id']) ?>" class="btn btn-dark">Lire la suite</a>
+    </div>
+    <div class="card-footer">
+        <span>Rédigé par <b><?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?></b>, le <em><?= htmlspecialchars($post['created_at']) ?></em></span>
+    </div>
+</div>
+<?php endforeach; ?>
+
+</div>
