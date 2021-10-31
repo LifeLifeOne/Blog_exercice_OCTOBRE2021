@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container admin">
     <a href="#" class="btn btn-info"><i class="fas fa-plus pe-2"></i>Créer un article</a>
     <table class="table table-striped">
         <thead class="bg-dark text-light">
@@ -20,8 +20,8 @@
                 <td colspan="3"><a href="index.php?page=post&id=<?= htmlspecialchars($post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
                 <td><?= htmlspecialchars($post['firstname'])." ".htmlspecialchars($post['lastname']) ?></td>
                 <td><?= htmlspecialchars($post['category']) ?></td>
-                <td class="text-end"><a href="index.php?page=edit" class="link-warning"><i class="fas fa-edit fs-3"></i></a></td>
-                <td class="text-end"><a href="index.php?page=delete" class="link-danger"><i class="fas fa-trash fs-3"></i></a></td>
+                <td class="text-end"><a href="" id="edit_data" class="link-warning"><i class="fas fa-edit fs-3"></i></a></td>
+                <td class="text-end"><a href="" id="delete_data" class="link-danger"><i class="fas fa-trash fs-3"></i></a></td>
             </tr>
             <?php endforeach ?>
         </tbody>
