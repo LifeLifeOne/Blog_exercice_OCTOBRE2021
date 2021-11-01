@@ -49,7 +49,7 @@
                         <a class="nav-link" href="#">contact</a>
                     </li>
                     <li class="nav-item mx-3 pe-4" style="min-width:fit-content">
-                        <a class="btn btn-danger" href="index.php?page=admin"><i class="fas fa-lock me-2"></i> Administration</a>
+                        <a class="btn btn-danger <?= ($_GET['page'] == 'admin') ? 'disabled' : '' ?>" href="index.php?page=admin"><i class="fas fa-lock me-2"></i> Administration</a>
                     </li>
                 </ul>
             </div>
