@@ -16,8 +16,8 @@
             <?php foreach ($posts as $post): ?>
             <tr>
                 <td class="fw-bold"><?= htmlspecialchars($post['id']) ?></td>
-                <td><?= htmlspecialchars($post['created_at']) ?></td>
-                <td colspan="3"><a href="index.php?page=post&id=<?= htmlspecialchars($post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
+                <td><em><?= htmlspecialchars($post['created_at']) ?></em></td>
+                <td colspan="3"><a class="link-info fw-bold" href="index.php?page=post&id=<?= htmlspecialchars($post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
                 <td><?= htmlspecialchars($post['firstname'])." ".htmlspecialchars($post['lastname']) ?></td>
                 <td><?= htmlspecialchars($post['category']) ?></td>
                 <td class="text-end"><a href="" id="edit_data" class="link-warning"><i class="fas fa-edit fs-3"></i></a></td>
