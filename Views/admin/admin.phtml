@@ -1,30 +1,42 @@
-<div class="container admin">
-    <a href="#" class="btn btn-info"><i class="fas fa-plus pe-2"></i>Créer un article</a>
-    <table class="table table-striped bg-white">
-        <thead class="bg-dark text-light">
-            <tr>
-                <th>ID</th>
-                <th>Création</th>
-                <th colspan="3">Titre</th>
-                <th>Auteur</th>
-                <th>Catégorie</th>
-                <th class="text-end">Modifier</th>
-                <th class="text-end">Supprimer</th>
-            </tr>
-         </thead>
-        <tbody>
-            <?php foreach ($posts as $post): ?>
-            <tr>
-                <td class="fw-bold"><?= htmlspecialchars($post['id']) ?></td>
-                <td><em><?= htmlspecialchars($post['created_at']) ?></em></td>
-                <td colspan="3"><a class="link-info fw-bold" href="index.php?page=post&id=<?= htmlspecialchars($post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
-                <td><?= htmlspecialchars($post['firstname'])." ".htmlspecialchars($post['lastname']) ?></td>
-                <td><?= htmlspecialchars($post['category']) ?></td>
-                <td class="text-end"><a href="" id="edit_data" class="link-warning"><i class="fas fa-edit fs-3"></i></a></td>
-                <td class="text-end"><a href="" id="delete_data" class="link-danger"><i class="fas fa-trash fs-3"></i></a></td>
-            </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
-    <span>Liste des posts classés par ordre chronologique inversé (<b><?= htmlspecialchars($total['total']) ?> <?= ($total['total'] <= 1) ? "article" : "articles" ; ?> au total</b>)</span>
+<div class="container admin grid-admin">
+
+    <nav class="bg-white rounded shadow-sm pt-4">
+        <ul class="">
+            <li class="mb-3"><a href="#" class="active-nav"><i class="fas fa-newspaper me-2"></i> Gestion des articles</a></li>
+            <li class="mb-3"><a href="#"><i class="fas fa-tags me-2"></i> Gestion des catégories</a></li>
+            <li class="mb-3"><a href="#"><i class="fas fa-users me-2"></i> Gestion des auteurs</a></li>
+        </ul>
+    </nav>
+    
+    <div>
+        <h1 class="text-center mb-5">Gestion des articles</h1>
+        <a href="#" class="btn btn-info"><i class="fas fa-plus pe-2"></i>Créer un article</a>
+        <table class="table table-striped bg-white">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Création</th>
+                    <th colspan="3">Titre</th>
+                    <th>Auteur</th>
+                    <th>Catégorie</th>
+                    <th class="text-end">Modifier</th>
+                    <th class="text-end">Supprimer</th>
+                </tr>
+             </thead>
+            <tbody>
+                <?php foreach ($posts as $post): ?>
+                <tr>
+                    <td class="fw-bold"><?= htmlspecialchars($post['id']) ?></td>
+                    <td><em><?= htmlspecialchars($post['created_at']) ?></em></td>
+                    <td colspan="3"><a class="link-info fw-bold" href="index.php?page=post&id=<?= htmlspecialchars($post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
+                    <td><?= htmlspecialchars($post['firstname'])." ".htmlspecialchars($post['lastname']) ?></td>
+                    <td><?= htmlspecialchars($post['category']) ?></td>
+                    <td class="text-end"><a href="index.php?page=edit&id=<?= htmlspecialchars($post['id']) ?>" id="edit_data" class="link-warning"><i class="fas fa-edit fs-3"></i></a></td>
+                    <td class="text-end"><a href="index.php?page=delete&id=<?= htmlspecialchars($post['id']) ?>" id="delete_data" class="link-danger"><i class="fas fa-trash fs-3"></i></a></td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+        <span>Liste des posts classés par ordre chronologique inversé (<b><?= htmlspecialchars($total['total']) ?> <?= ($total['total'] <= 1) ? "article" : "articles" ; ?> au total</b>)</span>
+    </div>
 </div>

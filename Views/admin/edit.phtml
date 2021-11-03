@@ -1,0 +1,45 @@
+<div class="container edit grid-admin">
+
+    <nav class="bg-white rounded shadow-sm pt-4">
+        <ul class="">
+            <li class="mb-3"><a href="#" class="active-nav"><i class="fas fa-newspaper me-2"></i> Gestion des articles</a></li>
+            <li class="mb-3"><a href="#"><i class="fas fa-tags me-2"></i> Gestion des catégories</a></li>
+            <li class="mb-3"><a href="#"><i class="fas fa-users me-2"></i> Gestion des auteurs</a></li>
+        </ul>
+    </nav>
+    
+    <div>
+        <h1 class="text-center mb-5">Modification de l'article <?= htmlspecialchars($post['id']) ?></h1>
+
+        <!-- FORMULAIRE  -->
+        <form class="bg-white rounded p-5">
+            <div class="row mb-3">
+                <!-- CATEGORIE DE L'ARTICLE  -->
+                <div class="col">
+                    <label for="category">Catégorie</label>
+                    <select class="form-control" id="category" name="category">
+                        <!-- boucle -->
+                    <option value="<?= $post['category'] ?>"></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="author">Auteur</label>
+                    <input type="text" class="form-control" name="author" value="<?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?>">
+                </div>
+            </div>
+            
+            <!-- AUTEUR DE L'ARTICLE  -->
+            <label for="title">Titre</label>
+            <input type="text" class="form-control mb-3" name="title" value="<?= htmlspecialchars($post['title']) ?>">
+            
+            <!-- CONTENU DE L'ARTICLE  -->
+            <div class="form-group">
+                <label for="content">Example textarea</label>
+                <textarea class="form-control" id="content" name="content" rows="6"><?= htmlspecialchars($post['content']) ?></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-info mt-5">Modifier l'article</button>
+
+        </form>
+    </div>
+</div>

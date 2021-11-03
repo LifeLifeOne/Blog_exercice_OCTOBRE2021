@@ -14,15 +14,15 @@ class Posts extends Connect
     public function findAllPosts() {
 
         $sql = 'SELECT
-        posts.id, title,
-        SUBSTRING(content, 1, 200) AS content, firstname, lastname, category,
-        DATE_FORMAT(created_at, "%W %e %M %Y") AS created_at
+                posts.id, title,
+                SUBSTRING(content, 1, 200) AS content, firstname, lastname, category,
+                DATE_FORMAT(created_at, "%W %e %M %Y") AS created_at
 
-        FROM posts
-        INNER JOIN categories ON posts.category_id = categories.id
-        INNER JOIN authors ON posts.author_id = authors.id
-        ORDER BY created_at DESC
-        LIMIT 10';
+                FROM posts
+                INNER JOIN categories ON posts.category_id = categories.id
+                INNER JOIN authors ON posts.author_id = authors.id
+                ORDER BY created_at DESC
+                LIMIT 10';
         
         $db = new Connect;
         $query = $db->prepare($sql);
@@ -52,11 +52,11 @@ class Posts extends Connect
     public function findPostById($id) {
 
         $sql = 'SELECT posts.id, title, content, firstname, lastname, category,
-        DATE_FORMAT(created_at, "%W %e %M %Y") AS created_at
-        FROM posts
-        INNER JOIN categories ON posts.category_id = categories.id
-        INNER JOIN authors ON posts.author_id = authors.id
-        WHERE posts.id = :id';
+                DATE_FORMAT(created_at, "%W %e %M %Y") AS created_at
+                FROM posts
+                INNER JOIN categories ON posts.category_id = categories.id
+                INNER JOIN authors ON posts.author_id = authors.id
+                WHERE posts.id = :id';
         
         $db = new Connect;
         $query = $db->prepare($sql);
@@ -113,9 +113,9 @@ class Posts extends Connect
     public function addComment($id, $nickname, $comment) {
 
         $sql = 'INSERT INTO comments
-        (post_id, nickname, content)
-        VALUES
-        (:id, :nickname, :comment)';
+                (post_id, nickname, content)
+                VALUES
+                (:id, :nickname, :comment)';
         
         $db = new Connect;
         $query = $db->prepare($sql);
@@ -123,6 +123,22 @@ class Posts extends Connect
             ':id'       => $id,
             ':nickname' => $nickname,
             ':comment'  => $comment
+        ]);
+ 
+    }
+
+    /**
+     * SUPRESSION D'UN ARTICLE DANS LA BDD
+     */
+    public function deletePost($id) {
+
+        $sql = 'DELETE FROM `posts` 
+                WHERE posts.id = :id';
+        
+        $db = new Connect;
+        $query = $db->prepare($sql);
+        $query->execute([
+            ':id'       => $id
         ]);
  
     }

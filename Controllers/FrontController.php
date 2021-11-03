@@ -15,7 +15,6 @@ class FrontController
         extract($array);
         $path = $path.".phtml";
         require '../Template/template.php';
-        
     }
 
     /**
@@ -57,7 +56,6 @@ class FrontController
             'title' => $title,
             'posts' => $posts
         ]);
-    
     }
 
     /**
@@ -65,9 +63,8 @@ class FrontController
      */
     public function post() {
 
-        if (!ctype_digit($_GET['id']) or !array_key_exists('id', $_GET)) {
-            header('Location: index.php');
-            exit();
+        if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
+            Https::redirect('index.php');
         }
 
         $id = intval($_GET['id']);
@@ -87,8 +84,10 @@ class FrontController
 
         if($_POST) {
 
-            if(empty($_POST['input_comment']) || empty($_POST['input_nickname'])) {
+            if(empty($_POST['input_nickname']) || empty($_POST['input_comment'])) {
+
                 $message['error'] = "Veuillez remplir les champs ...";
+
             }
             if(!empty($_POST['input_nickname']) && !empty($_POST['input_comment'])) {
 
@@ -98,11 +97,8 @@ class FrontController
                 $message['success'] = "Commentaire envoyé !";
 
                 $add = $req->addComment($id, $nickname, $comment);
-                header('Location: index.php?page=post&id='.$id);
-                exit;
-
+                Https::redirect('index.php?page=post&id='.$id);
             }
-      
         }
         
         $title = "Article - ".$post['title'];
@@ -115,7 +111,6 @@ class FrontController
             'message'        => $message,
             'nickname'       => $nickname
         ]);
-    
     }
 
     /**
@@ -134,6 +129,42 @@ class FrontController
             'posts' => $posts,
             'total' => $total
         ]);
+
+    }
+
+    /**
+     * PAGE DE SUPPRESSION D'ARTICLE
+     */
+    public function delete() {
+
+        $id = intval($_GET['id']);
+
+        $req = new Posts;
+        $action = $req->deletePost($id);
+
+        Https::redirect('index.php?page=admin');
+
+    }
+
+    /**
+     * PAGE D'EDITION D'ARTICLE
+     */
+    public function edit() {
+
+        $id = intval($_GET['id']);
+
+        $req = new Posts;
+        $post = $req->findPostById($id);
+
+        // $this->dd($post);
+
+        $title = "Modification article - ".$post['id'];
+        $this->render('admin/edit', [
+            'id'             => $id,
+            'title'          => $title,
+            'post'           => $post
+        ]);
+
     }
 
 } // Class end
