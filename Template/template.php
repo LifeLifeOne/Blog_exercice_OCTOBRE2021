@@ -15,11 +15,8 @@
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
     rel="stylesheet"
     />
-    <!-- MDB -->
-    <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
-    rel="stylesheet"
-    />
+    <!-- BOOTSTRAP -->
+    <link href="https://bootswatch.com/5/litera/bootstrap.min.css" rel="stylesheet">
     <!-- MY CSS -->
     <link
     href="../Assets/css/style.css"
@@ -30,28 +27,34 @@
 
     <!-- HEADER  -->
     <header class="container mb-5 mt-2 sticky-top">
-        <nav class="navbar rounded navbar-expand-lg navbar-dark bg-dark d-flex justify-content-around align-items-center shadow">
-            <div class="container-fluid px-4">
-                <a href="index.php" class="navbar-brand"><i class="fas fa-adjust me-2"></i>WORLD INFOS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.php"><i class="fas fa-adjust me-2"></i>WORLD INFOS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarColor02">
+
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item  mx-3">
-                        <a class="nav-link" href="index.php">Accueil</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="#">infos</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
                     </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="#">contact</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
                     </li>
-                    <li class="nav-item mx-3 pe-4" style="min-width:fit-content">
-                        <a class="btn btn-danger <?= ($_GET['page'] == 'admin') ? 'disabled' : '' ?>" href="index.php?page=admin"><i class="fas fa-lock me-2"></i> Administration</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
                     </li>
                 </ul>
+                <form class="d-flex">
+                    <a href="index.php?page=admin" class="btn btn-danger my-2 my-sm-0 <?= ($_GET['page'] == 'admin') ? 'disabled' : '' ?>" type="submit"><i class="fas fa-lock me-2"></i> Administration</a>
+                </form>
+                </div>
             </div>
         </nav>
     </header>
@@ -61,11 +64,6 @@
     <?= include "../views/$path"; ?> <!-- Appel de la vue -->
     </main>
 
-    <!-- JS -->
-    <script
-        type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js">
-    </script>
     <!-- My JS  -->
     <script src="../Assets/js/app.js"></script>
 </body>

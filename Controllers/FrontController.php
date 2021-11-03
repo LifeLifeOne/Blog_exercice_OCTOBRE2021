@@ -25,7 +25,7 @@ class FrontController
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
-      
+        
         return $data;
     }
 
@@ -73,23 +73,28 @@ class FrontController
         $comments       = $req->findAllComments($id);// Récupération des commentaires liés à l'article
         $total_comments = $req->findTotalComments($id);// Récupération du total de commentaires liés à l'article
 
+
         if($_POST) {
 
-            if(empty($_POST['input_nickname']) || empty($_POST['input_comment'])) {
+            $isValid = true; 
+            $nickname = $this->validate($_POST['input_nickname']);
+            $comment  = $this->validate($_POST['input_comment']);
 
-                $message['error'] = "Veuillez remplir les champs ...";
-
+            if(strlen($nickname) == 0) {
+                $isValid = false;
+                $message['error'] = "Veuillez renseigner un pseudo ...";
             }
-            if(!empty($_POST['input_nickname']) && !empty($_POST['input_comment'])) {
 
-                $nickname = $this->validate($_POST['input_nickname']);
-                $comment  = $this->validate($_POST['input_comment']);
-
-                $message['success'] = "Commentaire envoyé !";
-
+            if(strlen($comment) == 0) {
+                $isValid = false;
+                $message['error'] = "Veuillez mettre un commentaire ...";
+            }
+            if($isValid) {
                 $add = $req->addComment($id, $nickname, $comment);
+                $message['success'] = "Commentaire envoyé !";
                 Https::redirect('index.php?page=post&id='.$id);
             }
+            
         }
         
         $title = "Article - ".$post['title'];
@@ -162,6 +167,49 @@ class FrontController
             'title'      => $title,
             'post'       => $post,
             'categories' => $categories
+        ]);
+
+    }
+
+    /**
+     * PAGE CREATION D'ARTICLE
+     */
+    public function create() {
+        $message = [];
+
+        $req        = new Posts;
+        $posts      = $req->findAllPosts();
+        $id_authors = $req->findIdAuthors(); // Récupération de l'id des auteurs
+        
+        if($_POST) {
+            $isValid = true;
+            $title   = $this->validate($_POST['input_title']);
+            $content = $this->validate($_POST['input_content']);
+            
+            if(strlen($title) == 0) {
+                $isValid = false;
+                $message['error'] = "Vous devez renseigner un titre d'article";
+            }
+            if(strlen($content) == 0) {
+                $isValid = false;
+                $message['error'] = "Vous devez ecrire du contenu";
+            }
+            if(strlen($content) < 20 ) {
+                $isValid = false;
+                $message['error'] = "Vous devez écrire au moins 20 caractères";
+            }
+            if($isValid){
+                print_r('ok');
+            }
+
+        }
+
+        $title = "Creér un article";
+        $this->render('admin/create', [
+            'title'      => $title,
+            'posts'      => $posts,
+            'id_authors' => $id_authors,
+            'message'    => $message
         ]);
 
     }

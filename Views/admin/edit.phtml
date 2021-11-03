@@ -1,6 +1,6 @@
 <div class="container edit grid-admin">
 
-    <nav class="bg-white rounded shadow-sm pt-4">
+    <nav class="bg-white rounded shadow-sm pt-4 mx-auto pe-4">
         <ul class="">
             <li class="mb-3"><a href="#" class="active-nav"><i class="fas fa-newspaper me-2"></i> Gestion des articles</a></li>
             <li class="mb-3"><a href="#"><i class="fas fa-tags me-2"></i> Gestion des catégories</a></li>
@@ -19,7 +19,7 @@
                     <label for="category">Catégorie</label>
                     <select class="form-control" id="category" name="category">
                     <?php foreach($categories as $category): ?>
-                        <option value="<?= ($category['category']) ?>"><?= $category['category'] ?></option>
+                        <option value="<?= htmlspecialchars($category['category']) ?>"><?= htmlspecialchars($category['category']) ?></option>
                     <?php endforeach ?>
                     </select>
                 </div>
@@ -39,7 +39,7 @@
                 <textarea class="form-control" id="content" name="content" rows="6"><?= htmlspecialchars($post['content']) ?></textarea>
             </div>
 
-            <button type="submit" class="btn btn-info mt-5">Modifier l'article</button>
+            <button type="submit" class="btn btn-dark mt-5">Modifier l'article</button>
 
         </form>
     </div>

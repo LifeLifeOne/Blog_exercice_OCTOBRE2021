@@ -5,6 +5,7 @@
 body {
   line-height: 1.7;
   background: center / cover no-repeat url("../img/background.svg");
+  font-family: "Roboto", sans-serif;
 }
 
 .grid {
@@ -49,7 +50,6 @@ li {
   display: grid;
   grid-template-columns: 1fr 3fr;
   align-items: top;
-  gap: 1rem;
 }
 
 .active-nav {

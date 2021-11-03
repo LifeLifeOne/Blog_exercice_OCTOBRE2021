@@ -124,10 +124,26 @@ class Posts extends Connect
             ':nickname' => $nickname,
             ':comment'  => $comment
         ]);
+        
+    }
+
+    /** 
+     * REQUETE ID AUTEURS
+     */
+    public function findIdAuthors() {
+
+        $sql = 'SELECT id 
+                FROM authors';
+        
+        $db = new Connect;
+        $query = $db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
  
     }
 
-    /**
+    /** 
      * SUPRESSION D'UN ARTICLE DANS LA BDD
      */
     public function deletePost($id) {
