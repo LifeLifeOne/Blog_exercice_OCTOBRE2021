@@ -18,8 +18,9 @@
                 <div class="col">
                     <label for="category">Catégorie</label>
                     <select class="form-control" id="category" name="category">
-                        <!-- boucle -->
-                    <option value="<?= $post['category'] ?>"></option>
+                    <?php foreach($categories as $category): ?>
+                        <option value="<?= ($category['category']) ?>"><?= $category['category'] ?></option>
+                    <?php endforeach ?>
                     </select>
                 </div>
                 <div class="col">
@@ -34,7 +35,7 @@
             
             <!-- CONTENU DE L'ARTICLE  -->
             <div class="form-group">
-                <label for="content">Example textarea</label>
+                <label for="content">Contenu de l'article</label>
                 <textarea class="form-control" id="content" name="content" rows="6"><?= htmlspecialchars($post['content']) ?></textarea>
             </div>
 

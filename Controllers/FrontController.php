@@ -46,10 +46,8 @@ class FrontController
      */
     public function home() {
 
-        $req = new Posts;
-
-        // Récupération de tous les articles
-        $posts = $req->findAllPosts();
+        $req   = new Posts;
+        $posts = $req->findAllPosts();// Récupération de tous les articles
         
         $title = "Blog - Page d'accueil";
         $this->render('home/home', [
@@ -62,25 +60,18 @@ class FrontController
      * POST PAGE
      */
     public function post() {
+        $message = [];
+        $nickname = null;
 
         if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
             Https::redirect('index.php');
         }
 
-        $id = intval($_GET['id']);
-        $req = new Posts;
-        $message = [];
-        
-        // Récupération des informations liées à l'article
-        $post = $req->findPostById($id);
-        
-        // Récupération des commentaires liés à l'article
-        $comments = $req->findAllComments($id);
-
-        // Récupération du total de commentaires liés à l'article
-        $total_comments = $req->findTotalComments($id);
-
-        $nickname = null;
+        $id             = intval($_GET['id']);
+        $req            = new Posts;
+        $post           = $req->findPostById($id);// Récupération des informations liées à l'article
+        $comments       = $req->findAllComments($id);// Récupération des commentaires liés à l'article
+        $total_comments = $req->findTotalComments($id);// Récupération du total de commentaires liés à l'article
 
         if($_POST) {
 
@@ -92,7 +83,7 @@ class FrontController
             if(!empty($_POST['input_nickname']) && !empty($_POST['input_comment'])) {
 
                 $nickname = $this->validate($_POST['input_nickname']);
-                $comment = $this->validate($_POST['input_comment']);
+                $comment  = $this->validate($_POST['input_comment']);
 
                 $message['success'] = "Commentaire envoyé !";
 
@@ -118,7 +109,7 @@ class FrontController
      */
     public function admin() {
 
-        $req = new Posts;
+        $req   = new Posts;
         $posts = $req->findAllPosts();
         $total = $req->findTotalPosts();
         // $this->dd($total);
@@ -137,9 +128,12 @@ class FrontController
      */
     public function delete() {
 
-        $id = intval($_GET['id']);
+        if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
+            Https::redirect('index.php');
+        }
 
-        $req = new Posts;
+        $id     = intval($_GET['id']);
+        $req    = new Posts;
         $action = $req->deletePost($id);
 
         Https::redirect('index.php?page=admin');
@@ -151,18 +145,23 @@ class FrontController
      */
     public function edit() {
 
-        $id = intval($_GET['id']);
+        if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
+            Https::redirect('index.php');
+        }
 
-        $req = new Posts;
-        $post = $req->findPostById($id);
+        $id         = intval($_GET['id']);
+        $req        = new Posts;
+        $post       = $req->findPostById($id);// Récupération des informations liées à l'article
+        $categories = $req->findAllPosts();// Récupération de tous les articles
 
         // $this->dd($post);
 
         $title = "Modification article - ".$post['id'];
         $this->render('admin/edit', [
-            'id'             => $id,
-            'title'          => $title,
-            'post'           => $post
+            'id'         => $id,
+            'title'      => $title,
+            'post'       => $post,
+            'categories' => $categories
         ]);
 
     }

@@ -1,25 +1,25 @@
-window.addEventListener("DOMContentLoaded", (e) => {
+// window.addEventListener("DOMContentLoaded", (e) => {
 
-    /*--================== ADMINISTRATION ====================--*/
-    if (document.querySelector('.admin')) {
+//     /*--================== ADMINISTRATION ====================--*/
+//     if (document.querySelector('.admin')) {
 
-        const delete_data = document.querySelectorAll('#delete_data');
+//         const delete_data = document.querySelectorAll('#delete_data');
 
-        for (const del_button of delete_data) {
+//         for (const del_button of delete_data) {
 
-            del_button.addEventListener('click', () => {
+//             del_button.addEventListener('click', () => {
 
-                if (!confirm('Confirmer la suppression ?')) { // if return False
+//                 if (!confirm('Confirmer la suppression ?')) { // if return False
 
-                    del_button.removeAttribute('href');
-                    document.location.reload();
+//                     del_button.removeAttribute('href');
+//                     document.location.reload();
 
-                }
-            });
-        }
-    }
+//                 }
+//             });
+//         }
+//     }
 
-    /*--================== ARTICLE ====================--*/
+/*--================== ARTICLE ====================--*/
 
     // if (document.querySelector('#alert-js')) {
 
@@ -30,4 +30,4 @@ window.addEventListener("DOMContentLoaded", (e) => {
     //     }, 2500);
     // }
 
-});
+// });
