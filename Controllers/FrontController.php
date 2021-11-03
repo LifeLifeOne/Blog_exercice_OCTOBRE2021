@@ -212,9 +212,11 @@ class FrontController
         $categories = $req->findCategories(); // Récupération des catégories
         
         if($_POST) {
-            $isValid = true;
-            $title   = $this->validate($_POST['title']);
-            $content = $this->validate($_POST['content']);
+            $isValid     = true;
+            $title       = $this->validate($_POST['title']);
+            $content     = $this->validate($_POST['content']);
+            $category_id = $this->validate($_POST['category']);
+            $author_id   = $this->validate($_POST['author']);
             
             if(strlen($title) == 0) {
                 $isValid = false;
@@ -230,8 +232,7 @@ class FrontController
             }
             if($isValid){
                 $message['success'] = "L'article à bien été enregistré !";
-
-                // $action = $req->addPost();
+                $action = $req->addPost($title, $content, $category_id, $author_id);
             }
 
         }

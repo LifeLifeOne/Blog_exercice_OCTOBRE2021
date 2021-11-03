@@ -159,6 +159,26 @@ class Posts extends Connect
  
     }
 
+    /**
+     * AJOUT D'UN ARTICLE DANS LA BDD
+     */
+    public function addPost($title, $content, $category_id, $author_id) {
+
+        $sql = ' INSERT INTO posts 
+                (title, content, category_id, author_id)
+                VALUES (:title, :content, :category_id, :author_id)';
+        
+        $db = new Connect;
+        $query = $db->prepare($sql);
+        $query->execute([
+            ':title'      => $title,
+            ':content'    => $content,
+            ':category_id'=> $category_id,
+            ':author_id'  => $author_id
+        ]);
+        
+    }
+
     /** 
      * SUPRESSION D'UN ARTICLE DANS LA BDD
      */

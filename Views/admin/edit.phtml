@@ -1,12 +1,6 @@
 <div class="container edit grid-admin">
 
-    <nav class="bg-white rounded shadow-sm pt-4 mx-auto pe-4">
-        <ul class="">
-            <li class="mb-3"><a href="#" class="active-nav"><i class="fas fa-newspaper me-2"></i> Gestion des articles</a></li>
-            <li class="mb-3"><a href="#"><i class="fas fa-tags me-2"></i> Gestion des catégories</a></li>
-            <li class="mb-3"><a href="#"><i class="fas fa-users me-2"></i> Gestion des auteurs</a></li>
-        </ul>
-    </nav>
+    <?php include '../Views/admin/partials/_nav.phtml' ?>
     
     <div>
         
@@ -22,7 +16,7 @@
                     </div>
                 <?php endif ?>
             </div>     
-            <h1 class="text-center my-1">Modification de l'article <?= htmlspecialchars($post['id']) ?></h1>
+            <h1 class="text-center mb-2">Modification de l'article <?= htmlspecialchars($post['id']) ?></h1>
             <div class="row mb-3">
                 <!-- CATEGORIE DE L'ARTICLE  -->
                 <div class="col">
