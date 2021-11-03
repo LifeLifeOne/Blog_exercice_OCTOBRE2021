@@ -5,19 +5,9 @@
     <div>
         
         <!-- FORMULAIRE  -->
-        <form class="bg-white rounded p-3" method="POST">
-            <!-- SUCCESS -->
-            <div class="container-msg">
-                <?php if(!empty($message['success'])): ?>
-                    <div class="success-msg">
-                    <?php foreach($message as $key => $msg): ?>
-                        <?= $msg ?>
-                    <?php endforeach ?>
-                    </div>
-                <?php endif ?>
-            </div>     
+        <form class="bg-white rounded shadow-sm p-3" method="POST">
             <h1 class="text-center mb-2">Créer un article</h1>
-
+            <hr>
             <div class="row mb-3">
                 <!-- CATEGORIE DE L'ARTICLE  -->
                 <div class="col">
@@ -41,6 +31,7 @@
             <!-- AUTEUR DE L'ARTICLE  -->
             <label for="title">Titre </label>
             <input type="text" class="form-control" name="title" value="<?= (isset($_POST['title'])) ? $_POST['title'] : '' ?>">
+
             <!-- ERREUR -->
             <div class="container-msg">
                 <?php if(!empty($message['error']['title'])): ?>
@@ -56,19 +47,30 @@
             <div class="form-group">
                 <label for="content">Contenu de l'article</label>
                 <textarea class="form-control" id="content" name="content" rows="6"><?= (isset($_POST['content'])) ? $_POST['content'] : '' ?></textarea>
-                  <!-- ERREUR -->
+
+                <!-- ERREUR -->
+                <div class="container-msg">
+                    <?php if(!empty($message['error']['content'])): ?>
+                        <span class="text-danger">
+                        <?php foreach($message as $key => $msg): ?>
+                            * <?= $msg['content'] ?> <span class="text-dark"> | Il contient <?= strlen($_POST['content']) ?> <?= (strlen($_POST['content']) == 0) ? 'caractère' : 'caractères' ?></span>
+                        <?php endforeach ?>
+                        </span>
+                    <?php endif ?>
+                </div>     
+            </div>
+            
+            <!-- SUCCESS -->
             <div class="container-msg">
-                <?php if(!empty($message['error']['content'])): ?>
-                    <span class="text-danger">
+                <?php if(!empty($message['success'])): ?>
+                    <div class="success-msg">
                     <?php foreach($message as $key => $msg): ?>
-                        * <?= $msg['content'] ?>
+                        <?= $msg ?>
                     <?php endforeach ?>
-                    </span>
+                    </div>
                 <?php endif ?>
             </div>     
-            </div>
-
-            <button type="submit" name="submit" class="btn btn-dark mt-2">Créer l'article</button>
+            <button type="submit" name="submit" class="btn btn-dark d-block mx-auto mt-2">Créer l'article</button>
 
         </form>
     </div>

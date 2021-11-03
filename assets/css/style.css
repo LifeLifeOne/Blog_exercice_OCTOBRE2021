@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 95%;
+}
+
 body {
   line-height: 1.7;
   background: center / cover no-repeat url("../img/background.svg");

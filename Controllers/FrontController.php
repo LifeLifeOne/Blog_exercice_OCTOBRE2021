@@ -82,12 +82,12 @@ class FrontController
 
             if(strlen($nickname) == 0) {
                 $isValid = false;
-                $message['error'] = "Veuillez renseigner un pseudo ...";
+                $message['error'] = "Choisissez un pseudo";
             }
 
             if(strlen($comment) == 0) {
                 $isValid = false;
-                $message['error'] = "Veuillez mettre un commentaire ...";
+                $message['error'] = "Votre commentaire est vide";
             }
             if($isValid) {
                 $add = $req->addComment($id, $nickname, $comment);
@@ -226,9 +226,9 @@ class FrontController
                 $isValid = false;
                 $message['error']['content'] = "Vous devez ecrire du contenu";
             }
-            if(strlen($content) < 1 || strlen($content) > 10000) {
+            if(strlen($content) < 10 || strlen($content) > 10000) {
                 $isValid = false;
-                $message['error']['content'] = "L'article doit faire entre 100 et 10 000 caractères";
+                $message['error']['content'] = "L'article doit contenir entre 100 et 10 000 caractères";
             }
             if($isValid){
                 $message['success'] = "L'article à bien été enregistré !";

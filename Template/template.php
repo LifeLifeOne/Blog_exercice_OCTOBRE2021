@@ -16,7 +16,7 @@
     rel="stylesheet"
     />
     <!-- BOOTSTRAP -->
-    <link href="https://bootswatch.com/5/litera/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/lux/bootstrap.min.css" rel="stylesheet">
     <!-- MY CSS -->
     <link
     href="../Assets/css/style.css"
@@ -26,7 +26,7 @@
 <body>
 
     <!-- HEADER  -->
-    <header class="container mb-5 mt-2 sticky-top">
+    <header class="container mb-3 mt-2 sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php"><i class="fas fa-adjust me-2"></i>WORLD INFOS</a>
@@ -37,18 +37,14 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home
-                            <span class="visually-hidden">(current)</span>
+                        <a class="nav-link active" href="index.php">Accueil
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#">Qui sommes nous?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">Contact</a>
                     </li>
                 </ul>
                 <form class="d-flex">
