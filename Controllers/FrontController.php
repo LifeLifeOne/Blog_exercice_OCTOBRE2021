@@ -77,8 +77,8 @@ class FrontController
         if($_POST) {
 
             $isValid = true; 
-            $nickname = $this->validate($_POST['input_nickname']);
-            $comment  = $this->validate($_POST['input_comment']);
+            $nickname = $this->validate($_POST['nickname']);
+            $comment  = $this->validate($_POST['comment']);
 
             if(strlen($nickname) == 0) {
                 $isValid = false;
@@ -149,6 +149,7 @@ class FrontController
      * PAGE D'EDITION D'ARTICLE
      */
     public function edit() {
+        $message = [];
 
         if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
             Https::redirect('index.php');
@@ -159,14 +160,43 @@ class FrontController
         $post       = $req->findPostById($id);// Récupération des informations liées à l'article
         $categories = $req->findAllPosts();// Récupération de tous les articles
 
-        // $this->dd($post);
+        if($_POST) {
+            $isValid = true;
+            $author  = $this->validate($_POST['author']);
+            $title   = $this->validate($_POST['title']);
+            $content = $this->validate($_POST['content']);
+            
+            if(strlen($author) == 0) {
+                $isValid = false;
+                $message['error']['author'] = "Vous devez renseigner un auteur";
+            }
+
+            if(strlen($title) == 0) {
+                $isValid = false;
+                $message['error']['title'] = "Vous devez renseigner un titre d'article";
+            }
+            if(strlen($content) == 0) {
+                $isValid = false;
+                $message['error']['content'] = "Vous devez ecrire du contenu";
+            }
+            if(strlen($content) < 1 || strlen($content) > 10000) {
+                $isValid = false;
+                $message['error']['content'] = "L'article doit faire entre 100 et 10 000 caractères";
+            }
+            if($isValid){
+                $message['success'] = "L'article à bien été modifié !";
+                // UPDATE DE L'ARTICLE
+            }
+        }
+
 
         $title = "Modification article - ".$post['id'];
         $this->render('admin/edit', [
             'id'         => $id,
             'title'      => $title,
             'post'       => $post,
-            'categories' => $categories
+            'categories' => $categories,
+            'message'    => $message
         ]);
 
     }
@@ -178,28 +208,30 @@ class FrontController
         $message = [];
 
         $req        = new Posts;
-        $posts      = $req->findAllPosts();
-        $id_authors = $req->findIdAuthors(); // Récupération de l'id des auteurs
+        $authors    = $req->findAuthors(); // Récupération des auteurs
+        $categories = $req->findCategories(); // Récupération des catégories
         
         if($_POST) {
             $isValid = true;
-            $title   = $this->validate($_POST['input_title']);
-            $content = $this->validate($_POST['input_content']);
+            $title   = $this->validate($_POST['title']);
+            $content = $this->validate($_POST['content']);
             
             if(strlen($title) == 0) {
                 $isValid = false;
-                $message['error'] = "Vous devez renseigner un titre d'article";
+                $message['error']['title'] = "Vous devez renseigner un titre d'article";
             }
             if(strlen($content) == 0) {
                 $isValid = false;
-                $message['error'] = "Vous devez ecrire du contenu";
+                $message['error']['content'] = "Vous devez ecrire du contenu";
             }
-            if(strlen($content) < 20 ) {
+            if(strlen($content) < 1 || strlen($content) > 10000) {
                 $isValid = false;
-                $message['error'] = "Vous devez écrire au moins 20 caractères";
+                $message['error']['content'] = "L'article doit faire entre 100 et 10 000 caractères";
             }
             if($isValid){
-                print_r('ok');
+                $message['success'] = "L'article à bien été enregistré !";
+
+                // $action = $req->addPost();
             }
 
         }
@@ -207,8 +239,8 @@ class FrontController
         $title = "Creér un article";
         $this->render('admin/create', [
             'title'      => $title,
-            'posts'      => $posts,
-            'id_authors' => $id_authors,
+            'authors'    => $authors,
+            'categories' => $categories,
             'message'    => $message
         ]);
 

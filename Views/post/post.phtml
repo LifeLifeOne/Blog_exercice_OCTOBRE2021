@@ -74,12 +74,12 @@
 
                 <!-- Input Pseudo -->
                 <div class="mb-3">
-                    <input type="text" name="input_nickname" class="form-control" placeholder="Choisissez un pseudo" value="<?= (isset($_POST['input_nickname'])) ? htmlspecialchars($_POST['input_nickname']) : '' ?>">
+                    <input type="text" name="nickname" class="form-control" placeholder="Choisissez un pseudo" value="<?= (isset($_POST['input_nickname'])) ? htmlspecialchars($_POST['input_nickname']) : '' ?>">
                 </div>
 
                 <!-- TextArea Commentaire  -->
                 <div class="mb-3">
-                    <textarea name="input_comment" class="form-control" rows="2" placeholder="Votre commentaire..."><?= (isset($_POST['input_comment'])) ? htmlspecialchars($_POST['input_comment']) : '' ?></textarea>
+                    <textarea name="comment" class="form-control" rows="2" placeholder="Votre commentaire..."><?= (isset($_POST['input_comment'])) ? htmlspecialchars($_POST['input_comment']) : '' ?></textarea>
                 </div>
                 
                 <!-- Bouton d'envoi -->

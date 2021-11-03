@@ -9,37 +9,79 @@
     </nav>
     
     <div>
-        <h1 class="text-center mb-5">Modification de l'article <?= htmlspecialchars($post['id']) ?></h1>
-
+        
         <!-- FORMULAIRE  -->
-        <form class="bg-white rounded p-5">
+        <form class="bg-white rounded p-3" method="POST">
+            <!-- SUCCESS -->
+            <div class="container-msg">
+                <?php if(!empty($message['success'])): ?>
+                    <div class="success-msg">
+                    <?php foreach($message as $key => $msg): ?>
+                        <?= $msg ?>
+                    <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+            </div>     
+            <h1 class="text-center my-1">Modification de l'article <?= htmlspecialchars($post['id']) ?></h1>
             <div class="row mb-3">
                 <!-- CATEGORIE DE L'ARTICLE  -->
                 <div class="col">
                     <label for="category">Catégorie</label>
                     <select class="form-control" id="category" name="category">
+
                     <?php foreach($categories as $category): ?>
                         <option value="<?= htmlspecialchars($category['category']) ?>"><?= htmlspecialchars($category['category']) ?></option>
                     <?php endforeach ?>
+
                     </select>
                 </div>
                 <div class="col">
                     <label for="author">Auteur</label>
                     <input type="text" class="form-control" name="author" value="<?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?>">
+                     <!-- ERREUR -->
+                    <div class="container-msg">
+                        <?php if(!empty($message['error']['author'])): ?>
+                            <span class="text-danger">
+                            <?php foreach($message as $key => $msg): ?>
+                                * <?= $msg['author'] ?>
+                            <?php endforeach ?>
+                            </span>
+                        <?php endif ?>
+                    </div>     
                 </div>
             </div>
             
             <!-- AUTEUR DE L'ARTICLE  -->
             <label for="title">Titre</label>
-            <input type="text" class="form-control mb-3" name="title" value="<?= htmlspecialchars($post['title']) ?>">
+            <input type="text" class="form-control" name="title" value="<?= htmlspecialchars($post['title']) ?>">
+              <!-- ERREUR -->
+            <div class="container-msg">
+                <?php if(!empty($message['error']['title'])): ?>
+                    <span class="text-danger">
+                    <?php foreach($message as $key => $msg): ?>
+                        * <?= $msg['title'] ?>
+                    <?php endforeach ?>
+                    </span>
+                <?php endif ?>
+            </div>     
             
             <!-- CONTENU DE L'ARTICLE  -->
             <div class="form-group">
                 <label for="content">Contenu de l'article</label>
                 <textarea class="form-control" id="content" name="content" rows="6"><?= htmlspecialchars($post['content']) ?></textarea>
+                <!-- ERREUR -->
+                <div class="container-msg">
+                    <?php if(!empty($message['error']['content'])): ?>
+                        <span class="text-danger">
+                        <?php foreach($message as $key => $msg): ?>
+                            * <?= $msg['content'] ?>
+                        <?php endforeach ?>
+                        </span>
+                    <?php endif ?>
+                </div> 
             </div>
 
-            <button type="submit" class="btn btn-dark mt-5">Modifier l'article</button>
+            <button type="submit" class="btn btn-dark mt-2">Modifier l'article</button>
 
         </form>
     </div>

@@ -9,43 +9,28 @@
     </nav>
     
     <div>
-        <h1 class="text-center mb-5">Créer un article</h1>
-
+        
         <!-- FORMULAIRE  -->
-        <form class="bg-white rounded p-3" action="index.php?page=create" method="POST">
-
-            <div class="container-msg my-2">
-
-                <!-- MESSAGE ERRORS  -->
-                <?php if(!empty($message['error'])): ?>
-                <div class="alert alert-danger text-center" id="" role="alert">
-
-                    <?php foreach($message as $key => $msg): ?>
-                        <?= $msg ?>
-                    <?php endforeach ?>
-
-                </div>
-                <?php endif ?>
-
-                <!-- MESSAGE SUCCESS  -->
+        <form class="bg-white rounded p-3" method="POST">
+            <!-- SUCCESS -->
+            <div class="container-msg">
                 <?php if(!empty($message['success'])): ?>
-                <div class="alert alert-success text-center" role="alert">
-
+                    <div class="success-msg">
                     <?php foreach($message as $key => $msg): ?>
                         <?= $msg ?>
                     <?php endforeach ?>
-
-                </div>
+                    </div>
                 <?php endif ?>
-
-            </div>
+            </div>     
+            <h1 class="text-center my-1">Créer un article</h1>
 
             <div class="row mb-3">
                 <!-- CATEGORIE DE L'ARTICLE  -->
                 <div class="col">
                     <label for="category">Catégorie</label>
                     <select class="form-control" id="category" name="category">
-                    <?php foreach($posts as $category): ?>
+                        <option>Choisir une catégorie</option>
+                    <?php foreach($categories as $category): ?>
                         <option value="<?= ($category['category']) ?>"><?= htmlspecialchars($category['category']) ?></option>
                     <?php endforeach ?>
                     </select>
@@ -53,24 +38,45 @@
                 <div class="col">
                     <label for="author">Auteur</label>
                     <select class="form-control" id="category" name="category">
-                    <?php foreach($posts as $authors): ?>
-                        <option value="<?= $authors['id'] ?>"><?= htmlspecialchars($authors['firstname'])." ".htmlspecialchars($authors['lastname']) ?></option>
+                    <option>Choisir un auteur</option>
+                    <?php foreach($authors as $author): ?>
+                        <option value="<?= $author['id'] ?>"><?= htmlspecialchars($author['firstname'])." ".htmlspecialchars($author['lastname']) ?></option>
                     <?php endforeach ?>
                     </select>
                 </div>
             </div>
             
             <!-- AUTEUR DE L'ARTICLE  -->
-            <label for="title">Titre</label>
-            <input type="text" class="form-control mb-3" name="input_title" value="<?= (isset($_POST['input_title'])) ? $_POST['input_title'] : '' ?>">
+            <label for="title">Titre </label>
+            <input type="text" class="form-control" name="title" value="<?= (isset($_POST['title'])) ? $_POST['title'] : '' ?>">
+            <!-- ERREUR -->
+            <div class="container-msg">
+                <?php if(!empty($message['error']['title'])): ?>
+                    <span class="text-danger">
+                    <?php foreach($message as $key => $msg): ?>
+                        * <?= $msg['title'] ?>
+                    <?php endforeach ?>
+                    </span>
+                <?php endif ?>
+            </div>     
             
             <!-- CONTENU DE L'ARTICLE  -->
             <div class="form-group">
                 <label for="content">Contenu de l'article</label>
-                <textarea class="form-control" id="content" name="input_content" rows="6"><?= (isset($_POST['input_content'])) ? $_POST['input_content'] : '' ?></textarea>
+                <textarea class="form-control" id="content" name="content" rows="6"><?= (isset($_POST['content'])) ? $_POST['content'] : '' ?></textarea>
+                  <!-- ERREUR -->
+            <div class="container-msg">
+                <?php if(!empty($message['error']['content'])): ?>
+                    <span class="text-danger">
+                    <?php foreach($message as $key => $msg): ?>
+                        * <?= $msg['content'] ?>
+                    <?php endforeach ?>
+                    </span>
+                <?php endif ?>
+            </div>     
             </div>
 
-            <button type="submit" name="submit" class="btn btn-dark mt-5">Créer l'article</button>
+            <button type="submit" name="submit" class="btn btn-dark mt-2">Créer l'article</button>
 
         </form>
     </div>

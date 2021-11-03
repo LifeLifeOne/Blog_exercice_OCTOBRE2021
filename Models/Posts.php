@@ -130,10 +130,26 @@ class Posts extends Connect
     /** 
      * REQUETE ID AUTEURS
      */
-    public function findIdAuthors() {
+    public function findAuthors() {
 
-        $sql = 'SELECT id 
+        $sql = 'SELECT id, firstname, lastname 
                 FROM authors';
+        
+        $db = new Connect;
+        $query = $db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+ 
+    }
+
+    /** 
+     * REQUETE CATEGORIES + NOM
+     */
+    public function findCategories() {
+
+        $sql = 'SELECT id, category 
+                FROM categories';
         
         $db = new Connect;
         $query = $db->prepare($sql);
