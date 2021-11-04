@@ -1,3 +1,12 @@
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">Administration</li>
+            <li class="breadcrumb-item"><a href="index.php?page=admin">Gestion des articles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifier un article</li>
+        </ol>
+    </nav>
+</div>
 <div class="container edit grid-admin">
 
     <?php include '../Views/admin/partials/_nav.phtml' ?>
@@ -24,7 +33,7 @@
                     <label for="category">Choisir une catégorie</label>
                     <select class="form-control" id="category" name="category">
                         <?php foreach($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['id']) ?>" <?= $category['id'] == $category_id ? 'selected' : '' ?>><?= htmlspecialchars($category['category']) ?></option>
+                        <option value="<?= htmlspecialchars($category['id']) ?>"<?= $category['id'] == $post['category_id'] ? 'selected' : '' ?>><?= htmlspecialchars($category['category']) ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -32,9 +41,7 @@
                     <label for="author">Choisir un auteur</label>
                     <select class="form-control" id="author" name="author">
                         <?php foreach($authors as $author): ?>
-
-                            <?php var_dump($author)?>
-                        <option value="<?= htmlspecialchars($author['id']) ?>" <?= $author['id'] == $author_id ? 'selected' : '' ?>><?= htmlspecialchars($author['firstname'])." ".htmlspecialchars($author['lastname']) ?></option>
+                        <option value="<?= htmlspecialchars($author['id']) ?>" <?= $author['id'] == $post['author_id'] ? 'selected' : '' ?>><?= htmlspecialchars($author['firstname'])." ".htmlspecialchars($author['lastname']) ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -42,7 +49,7 @@
             
             <!-- AUTEUR DE L'ARTICLE  -->
             <label for="title">Titre </label>
-            <input type="text" class="form-control" name="title" value="<?= htmlspecialchars($post['title']) ?>">
+            <input type="text" class="form-control" name="title" value="<?= $title_post ?? $post['title'] ?>">
 
             <!-- ERREUR -->
             <div class="container-msg">
@@ -58,7 +65,7 @@
             <!-- CONTENU DE L'ARTICLE  -->
             <div class="form-group">
                 <label for="content">Contenu de l'article</label>
-                <textarea class="form-control" id="content" name="content" rows="6"><?= htmlspecialchars($post['content']) ?></textarea>
+                <textarea class="form-control" id="content" name="content" rows="6"><?= $content ?? $post['content'] ?></textarea>
 
                 <!-- ERREUR -->
                 <div class="container-msg">
@@ -82,7 +89,7 @@
                     </div>
                 <?php endif ?>
             </div>     
-            <button type="submit" name="submit" class="btn btn-dark d-block mx-auto mt-2">Créer l'article</button>
+            <button type="submit" name="submit" class="btn btn-dark d-block mx-auto mt-2">Modifier l'article</button>
 
         </form>
     </div>

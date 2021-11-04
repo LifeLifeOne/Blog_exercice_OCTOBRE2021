@@ -128,23 +128,6 @@ class FrontController
     }
 
     /**
-     * PAGE DE SUPPRESSION D'ARTICLE
-     */
-    public function delete() {
-
-        if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
-            Https::redirect('index.php');
-        }
-
-        $id     = intval($_GET['id']);
-        $req    = new Posts;
-        $action = $req->deletePost($id);
-
-        Https::redirect('index.php?page=admin');
-
-    }
-
-    /**
      * PAGE D'EDITION D'ARTICLE
      */
     public function edit() {
@@ -153,8 +136,10 @@ class FrontController
         }
 
         $message     = [];
-        $author_id   = '';
-        $category_id = '';
+        $author_id   = null;
+        $category_id = null;
+        $title_post  = null;
+        $content     = null;
 
         $id         = intval($_GET['id']);
         $req        = new Posts;
@@ -162,14 +147,16 @@ class FrontController
         $authors    = $req->findAuthors(); // Récupération des auteurs
         $categories = $req->findCategories(); // Récupération des catégories
 
+        // $this->dd($categories);
+
         if($_POST) {
             $isValid     = true;
-            $title       = $this->validate($_POST['title']);
+            $title_post  = $this->validate($_POST['title']);
             $content     = $this->validate($_POST['content']);
             $category_id = $this->validate($_POST['category']);
             $author_id   = $this->validate($_POST['author']);
             
-            if(strlen($title) == 0) {
+            if(strlen($title_post) == 0) {
                 $isValid = false;
                 $message['error']['title'] = "Vous devez renseigner un titre d'article";
             }
@@ -189,16 +176,17 @@ class FrontController
                 $message['error']['int'] = "Une erreur s'est produite";
             }
             if($isValid){
-                $message['success'] = "L'article à bien été enregistré !";
-                $action = $req->updatePost($id, $title, $content, $category_id, $author_id);
+                $action = $req->updatePost($id, $title_post, $content, $category_id, $author_id);
                 Https::redirect('index.php?page=post&id='.$id);
             }
         }
 
-        $title = "Modification article - ".$post['id'];
+        $title = "Administration - Modification";
         $this->render('admin/edit', [
             'id'          => $id,
             'title'       => $title,
+            'title_post'  => $title_post,
+            'content'     => $content,
             'post'        => $post,
             'authors'     => $authors,
             'categories'  => $categories,
@@ -214,22 +202,23 @@ class FrontController
      */
     public function create() {
         $message     = [];
-        $category_id = '';
-        $author_id   = '';
+        $author_id   = null;
+        $category_id = null;
+        $title_post  = null;
+        $content     = null;
 
         $req        = new Posts;
         $authors    = $req->findAuthors(); // Récupération des auteurs
         $categories = $req->findCategories(); // Récupération des catégories
         
-        
         if($_POST) {
             $isValid     = true;
-            $title       = $this->validate($_POST['title']);
+            $title_post  = $this->validate($_POST['title']);
             $content     = $this->validate($_POST['content']);
             $category_id = $this->validate($_POST['category']);
             $author_id   = $this->validate($_POST['author']);
             
-            if(strlen($title) == 0) {
+            if(strlen($title_post) == 0) {
                 $isValid = false;
                 $message['error']['title'] = "Vous devez renseigner un titre d'article";
             }
@@ -249,22 +238,37 @@ class FrontController
                 $message['error']['int'] = "Une erreur s'est produite";
             }
             if($isValid){
-                $message['success'] = "L'article à bien été enregistré !";
-                $action = $req->addPost($title, $content, $category_id, $author_id);
+                // $message['success'] = "L'article à bien été enregistré !";
+                $action = $req->addPost($title_post, $content, $category_id, $author_id);
                 Https::redirect('index.php?page=admin');
             }
 
         }
 
-        $title = "Creér un article";
+        $title = "Administration - Création";
         $this->render('admin/create', [
             'title'       => $title,
+            'title_post'  => $title_post,
+            'content'     => $content,
             'authors'     => $authors,
             'categories'  => $categories,
             'category_id' => $category_id,
             'author_id'   => $author_id,
             'message'     => $message
         ]);
+
+    }
+
+    /**
+     * PAGE DE SUPPRESSION D'ARTICLE
+     */
+    public function delete() {
+
+        $id     = intval($_GET['id']);
+        $req    = new Posts;
+        $action = $req->deletePost($id);
+
+        Https::redirect('index.php?page=admin');
 
     }
 

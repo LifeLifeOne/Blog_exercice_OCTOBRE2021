@@ -5,7 +5,6 @@ use App\Core\Connect;
 
 class Posts extends Connect
 {
-
     private $db;
 
     /**
@@ -51,7 +50,7 @@ class Posts extends Connect
      */
     public function findPostById($id) {
 
-        $sql = 'SELECT posts.id, title, content, firstname, lastname, category,
+        $sql = 'SELECT posts.id, title, content, firstname, lastname, category, category_id, author_id,
                 DATE_FORMAT(created_at, "%W %e %M %Y") AS created_at
                 FROM posts
                 INNER JOIN categories ON posts.category_id = categories.id
@@ -162,7 +161,7 @@ class Posts extends Connect
     /**
      * AJOUT D'UN ARTICLE DANS LA BDD
      */
-    public function addPost(String $title, String $content, int $category_id, int $author_id) {
+    public function addPost(String $title_post, String $content, int $category_id, int $author_id) {
 
         $sql = ' INSERT INTO posts 
                 (title, content, category_id, author_id)
@@ -171,7 +170,7 @@ class Posts extends Connect
         $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
-            ':title'      => $title,
+            ':title'      => $title_post,
             ':content'    => $content,
             ':category_id'=> $category_id,
             ':author_id'  => $author_id
@@ -182,11 +181,11 @@ class Posts extends Connect
     /**
      * UPDATE D'UN ARTICLE DANS LA BDD
      */
-    public function updatePost(int $id, String $title, String $content, int $category_id, int $author_id) {
+    public function updatePost(int $id, String $title_post, String $content, int $category_id, int $author_id) {
 
         $sql = 'UPDATE posts 
                 SET 
-                title       = :title,
+                title_post  = :title,
                 content     = :content,
                 category_id = :category_id,
                 author_id   = :author_id,
@@ -197,7 +196,7 @@ class Posts extends Connect
         $query = $db->prepare($sql);
         $query->execute([
             ':id'         => $id,
-            ':title'      => $title,
+            ':title'      => $title_post,
             ':content'    => $content,
             ':category_id'=> $category_id,
             ':author_id'  => $author_id
@@ -210,7 +209,7 @@ class Posts extends Connect
      */
     public function deletePost($id) {
 
-        $sql = 'DELETE FROM `posts` 
+        $sql = 'DELETE FROM posts 
                 WHERE posts.id = :id';
         
         $db    = new Connect;

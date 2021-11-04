@@ -1,3 +1,12 @@
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">Administration</li>
+            <li class="breadcrumb-item"><a href="index.php?page=admin">Gestion des articles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Créer un article</li>
+        </ol>
+    </nav>
+</div>
 <div class="container create grid-admin">
 
     <?php include '../Views/admin/partials/_nav.phtml' ?>
@@ -71,7 +80,7 @@
             </div>
             
             <!-- SUCCESS -->
-            <div class="container-msg">
+            <!-- <div class="container-msg">
                 <?php if(!empty($message['success'])): ?>
                     <div class="success-msg">
                     <?php foreach($message as $key => $msg): ?>
@@ -79,7 +88,7 @@
                     <?php endforeach ?>
                     </div>
                 <?php endif ?>
-            </div>     
+            </div>      -->
             <button type="submit" name="submit" class="btn btn-dark d-block mx-auto mt-2">Créer l'article</button>
 
         </form>
