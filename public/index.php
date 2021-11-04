@@ -17,9 +17,7 @@ if(isset($_GET['page'])):
     : $router->home();
 
 else:
-
     Https::redirect('index.php?page=home');
-
 endif;
 
 
