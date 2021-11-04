@@ -24,7 +24,7 @@ class Posts extends Connect
                 ORDER BY created_at DESC
                 LIMIT 10';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute();
 
@@ -39,7 +39,7 @@ class Posts extends Connect
         $sql = 'SELECT COUNT(*) AS total
                 FROM posts';
 
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute();
 
@@ -58,7 +58,7 @@ class Posts extends Connect
                 INNER JOIN authors ON posts.author_id = authors.id
                 WHERE posts.id = :id';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
             ':id' => $id
@@ -77,7 +77,7 @@ class Posts extends Connect
                 WHERE post_id = :id
                 ORDER BY created_at DESC';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
             ':id' => $id
@@ -97,7 +97,7 @@ class Posts extends Connect
                 INNER JOIN posts ON posts.id = comments.post_id
                 WHERE posts.id = :id';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
             ':id' => $id
@@ -117,7 +117,7 @@ class Posts extends Connect
                 VALUES
                 (:id, :nickname, :comment)';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
             ':id'       => $id,
@@ -135,7 +135,7 @@ class Posts extends Connect
         $sql = 'SELECT id, firstname, lastname 
                 FROM authors';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute();
 
@@ -151,7 +151,7 @@ class Posts extends Connect
         $sql = 'SELECT id, category 
                 FROM categories';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute();
 
@@ -168,7 +168,7 @@ class Posts extends Connect
                 (title, content, category_id, author_id)
                 VALUES (:title, :content, :category_id, :author_id)';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
             ':title'      => $title,
@@ -187,7 +187,7 @@ class Posts extends Connect
         $sql = 'DELETE FROM `posts` 
                 WHERE posts.id = :id';
         
-        $db = new Connect;
+        $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
             ':id'       => $id

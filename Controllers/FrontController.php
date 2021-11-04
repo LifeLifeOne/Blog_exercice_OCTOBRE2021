@@ -60,7 +60,7 @@ class FrontController
      * POST PAGE
      */
     public function post() {
-        $message = [];
+        $message  = [];
         $nickname = null;
 
         if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
@@ -72,7 +72,6 @@ class FrontController
         $post           = $req->findPostById($id);// Récupération des informations liées à l'article
         $comments       = $req->findAllComments($id);// Récupération des commentaires liés à l'article
         $total_comments = $req->findTotalComments($id);// Récupération du total de commentaires liés à l'article
-
 
         if($_POST) {
 
@@ -179,16 +178,15 @@ class FrontController
                 $isValid = false;
                 $message['error']['content'] = "Vous devez ecrire du contenu";
             }
-            if(strlen($content) < 1 || strlen($content) > 10000) {
+            if(strlen($content) < 100 || strlen($content) > 10000) {
                 $isValid = false;
                 $message['error']['content'] = "L'article doit faire entre 100 et 10 000 caractères";
             }
             if($isValid){
                 $message['success'] = "L'article à bien été modifié !";
-                // UPDATE DE L'ARTICLE
+                // REQUETE UPDATE DE L'ARTICLE
             }
         }
-
 
         $title = "Modification article - ".$post['id'];
         $this->render('admin/edit', [
@@ -226,7 +224,7 @@ class FrontController
                 $isValid = false;
                 $message['error']['content'] = "Vous devez ecrire du contenu";
             }
-            if(strlen($content) < 10 || strlen($content) > 10000) {
+            if(strlen($content) < 100 || strlen($content) > 10000) {
                 $isValid = false;
                 $message['error']['content'] = "L'article doit contenir entre 100 et 10 000 caractères";
             }
