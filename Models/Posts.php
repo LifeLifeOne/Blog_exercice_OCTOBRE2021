@@ -162,7 +162,7 @@ class Posts extends Connect
     /**
      * AJOUT D'UN ARTICLE DANS LA BDD
      */
-    public function addPost($title, $content, $category_id, $author_id) {
+    public function addPost(String $title, String $content, int $category_id, int $author_id) {
 
         $sql = ' INSERT INTO posts 
                 (title, content, category_id, author_id)
@@ -171,6 +171,32 @@ class Posts extends Connect
         $db    = new Connect;
         $query = $db->prepare($sql);
         $query->execute([
+            ':title'      => $title,
+            ':content'    => $content,
+            ':category_id'=> $category_id,
+            ':author_id'  => $author_id
+        ]);
+        
+    }
+
+    /**
+     * UPDATE D'UN ARTICLE DANS LA BDD
+     */
+    public function updatePost(int $id, String $title, String $content, int $category_id, int $author_id) {
+
+        $sql = 'UPDATE posts 
+                SET 
+                title       = :title,
+                content     = :content,
+                category_id = :category_id,
+                author_id   = :author_id,
+                created_at  = NOW() 
+                WHERE id    = :id';
+        
+        $db    = new Connect;
+        $query = $db->prepare($sql);
+        $query->execute([
+            ':id'         => $id,
             ':title'      => $title,
             ':content'    => $content,
             ':category_id'=> $category_id,

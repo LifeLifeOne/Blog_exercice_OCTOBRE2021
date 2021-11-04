@@ -6,6 +6,16 @@
         
         <!-- FORMULAIRE  -->
         <form class="bg-white rounded shadow-sm p-3" method="POST">
+            <!-- ERREUR -->
+            <div class="container-msg">
+                <?php if(!empty($message['error']['int'])): ?>
+                    <span class="text-danger">
+                    <?php foreach($message as $key => $msg): ?>
+                        * <?= $msg['int'] ?>
+                    <?php endforeach ?>
+                    </span>
+                <?php endif ?>
+            </div>     
             <h1 class="text-center mb-2">Créer un article</h1>
             <hr>
             <div class="row mb-3">
@@ -13,17 +23,17 @@
                 <div class="col">
                     <label for="category">Choisir une catégorie</label>
                     <select class="form-control" id="category" name="category">
-                    <?php foreach($categories as $category): ?>
-                        <option value="<?= ($category['id']) ?>"><?= htmlspecialchars($category['category']) ?></option>
-                    <?php endforeach ?>
+                        <?php foreach($categories as $category): ?>
+                        <option value="<?= htmlspecialchars($category['id']) ?>" <?= $category['id'] == $category_id ? 'selected' : '' ?>><?= htmlspecialchars($category['category']) ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <div class="col">
                     <label for="author">Choisir un auteur</label>
                     <select class="form-control" id="category" name="author">
-                    <?php foreach($authors as $author): ?>
-                        <option value="<?= $author['id'] ?>"><?= htmlspecialchars($author['firstname'])." ".htmlspecialchars($author['lastname']) ?></option>
-                    <?php endforeach ?>
+                        <?php foreach($authors as $author): ?>
+                        <option value="<?= htmlspecialchars($author['id']) ?>" <?= $author['id'] == $author_id ? 'selected' : '' ?>><?= htmlspecialchars($author['firstname'])." ".htmlspecialchars($author['lastname']) ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
             </div>

@@ -6,42 +6,45 @@
         
         <!-- FORMULAIRE  -->
         <form class="bg-white rounded shadow-sm p-3" method="POST">
-            <h1 class="text-center mb-2">Modification de l'article <?= htmlspecialchars($post['id']) ?></h1>
+            <!-- ERREUR -->
+            <div class="container-msg">
+                <?php if(!empty($message['error']['int'])): ?>
+                    <span class="text-danger">
+                    <?php foreach($message as $key => $msg): ?>
+                        * <?= $msg['int'] ?>
+                    <?php endforeach ?>
+                    </span>
+                <?php endif ?>
+            </div>     
+            <h1 class="text-center mb-2">Modifier l'article <?= $post['id'] ?></h1>
             <hr>
             <div class="row mb-3">
                 <!-- CATEGORIE DE L'ARTICLE  -->
                 <div class="col">
-                    <label for="category">Catégorie</label>
+                    <label for="category">Choisir une catégorie</label>
                     <select class="form-control" id="category" name="category">
-
-                    <?php foreach($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['category']) ?>"><?= htmlspecialchars($category['category']) ?></option>
-                    <?php endforeach ?>
-
+                        <?php foreach($categories as $category): ?>
+                        <option value="<?= htmlspecialchars($category['id']) ?>" <?= $category['id'] == $category_id ? 'selected' : '' ?>><?= htmlspecialchars($category['category']) ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <div class="col">
-                    <label for="author">Auteur</label>
-                    <input type="text" class="form-control" name="author" value="<?= htmlspecialchars($post['firstname']).' '.htmlspecialchars($post['lastname']) ?>">
-                    
-                     <!-- ERREUR -->
-                    <div class="container-msg">
-                        <?php if(!empty($message['error']['author'])): ?>
-                            <span class="text-danger">
-                            <?php foreach($message as $key => $msg): ?>
-                                * <?= $msg['author'] ?>
-                            <?php endforeach ?>
-                            </span>
-                        <?php endif ?>
-                    </div>     
+                    <label for="author">Choisir un auteur</label>
+                    <select class="form-control" id="author" name="author">
+                        <?php foreach($authors as $author): ?>
+
+                            <?php var_dump($author)?>
+                        <option value="<?= htmlspecialchars($author['id']) ?>" <?= $author['id'] == $author_id ? 'selected' : '' ?>><?= htmlspecialchars($author['firstname'])." ".htmlspecialchars($author['lastname']) ?></option>
+                        <?php endforeach ?>
+                    </select>
                 </div>
             </div>
             
             <!-- AUTEUR DE L'ARTICLE  -->
-            <label for="title">Titre</label>
+            <label for="title">Titre </label>
             <input type="text" class="form-control" name="title" value="<?= htmlspecialchars($post['title']) ?>">
 
-              <!-- ERREUR -->
+            <!-- ERREUR -->
             <div class="container-msg">
                 <?php if(!empty($message['error']['title'])): ?>
                     <span class="text-danger">
@@ -62,13 +65,13 @@
                     <?php if(!empty($message['error']['content'])): ?>
                         <span class="text-danger">
                         <?php foreach($message as $key => $msg): ?>
-                            * <?= $msg['content'] ?>
+                            * <?= $msg['content'] ?> <span class="text-dark"> | Il contient <?= strlen($_POST['content']) ?> <?= (strlen($_POST['content']) == 0) ? 'caractère' : 'caractères' ?></span>
                         <?php endforeach ?>
                         </span>
                     <?php endif ?>
-                </div> 
+                </div>     
             </div>
-
+            
             <!-- SUCCESS -->
             <div class="container-msg">
                 <?php if(!empty($message['success'])): ?>
@@ -78,8 +81,8 @@
                     <?php endforeach ?>
                     </div>
                 <?php endif ?>
-            </div>   
-            <button type="submit" class="btn btn-dark d-block mx-auto mt-2">Modifier l'article</button>  
+            </div>     
+            <button type="submit" name="submit" class="btn btn-dark d-block mx-auto mt-2">Créer l'article</button>
 
         </form>
     </div>
