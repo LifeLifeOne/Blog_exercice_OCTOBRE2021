@@ -47,9 +47,16 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <a href="index.php?page=admin" class="btn btn-danger my-2 my-sm-0 <?= ($_GET['page'] == 'admin') ? 'disabled' : '' ?>" type="submit"><i class="fas fa-lock me-2"></i> Administration</a>
-                </form>
+                <ul class="d-flex">
+                    <li>
+                        <a href="index.php?page=login" class="btn btn-danger <?= ($_GET['page'] == 'admin') ? 'disabled' : '' ?>"><i class="fas fa-lock me-2"></i> Administration</a>
+                    </li>
+                    <?php if(isset($_SESSION['email'])): ?>
+                    <li>
+                        <a href="index.php?page=logout" class="btn btn-dark ms-2"><i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                    <?php endif ?>
+                </ul>
                 </div>
             </div>
         </nav>

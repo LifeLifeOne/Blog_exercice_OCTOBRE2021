@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\ {Connect, Https};
-use App\Models\Posts;
+use App\Models\ {Posts, Users};
 
 class FrontController 
 {
@@ -109,17 +109,86 @@ class FrontController
     }
 
     /**
+     * PAGE LOGIN
+     */
+    public function login() {
+        session_start();
+        $message  = [];
+        $isValid  = true;
+        $password = '';
+        $email    = '';
+
+        isset($_SESSION['email']) ? Https::redirect('index.php?page=admin'): '';
+        
+        if (isset($_POST['login'])) {
+    
+            $email    = $this->validate($_POST['email']);
+            $password = $this->validate($_POST['password']);
+    
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $isValid = false;
+                $message['error']['email'] = 'Email invalide';
+            }
+            if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password)) {
+                $isValid = false;
+                $message['error']['password'] = 'Mot de passe invalide';
+            }
+
+            if($isValid) {
+                $req = new Users;
+                $user = $req->connectionAdmin($email, $password);
+
+                if($user):
+
+                    if (password_verify($password, $user['password'])) {
+                        session_start();
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['username'] = $user['username'];
+                        Https::redirect('index.php?page=admin');
+
+                    } else {
+                        $message['error']['both'] = 'Email et/ou Mot de passe invalide';
+                    }
+
+                else:
+                    $message['error']['both'] = 'Email et/ou Mot de passe invalide';
+                endif;
+
+            } // End if($isValid)
+
+        } // End if(isset($_POST['login']))
+        
+        $title = "Se connecter";
+        $this->render('admin/login/login', [
+            'title'   => $title,
+            'email'   => $email,
+            'password'=> $password,
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * PAGE LOGOUT
+     */
+    public function logout() {
+        session_start();
+        session_destroy();
+        Https::redirect('index.php');
+    }
+
+
+    /**
      * PAGE D'ADMINISTRATION
      */
     public function admin() {
-
+        session_start();
         $req   = new Posts;
         $posts = $req->findAllPosts();
         $total = $req->findTotalPosts();
         // $this->dd($total);
 
         $title = "Panel d'administration";
-        $this->render('admin/admin', [
+        $this->render('admin/admin/admin', [
             'title' => $title,
             'posts' => $posts,
             'total' => $total
@@ -131,6 +200,7 @@ class FrontController
      * PAGE D'EDITION D'ARTICLE
      */
     public function edit() {
+        session_start();
         if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
             Https::redirect('index.php');
         }
@@ -182,7 +252,7 @@ class FrontController
         }
 
         $title = "Administration - Modification";
-        $this->render('admin/edit', [
+        $this->render('admin/edit/edit', [
             'id'          => $id,
             'title'       => $title,
             'title_post'  => $title_post,
@@ -201,6 +271,7 @@ class FrontController
      * PAGE CREATION D'ARTICLE
      */
     public function create() {
+        session_start();
         $message     = [];
         $author_id   = null;
         $category_id = null;
@@ -246,7 +317,7 @@ class FrontController
         }
 
         $title = "Administration - Création";
-        $this->render('admin/create', [
+        $this->render('admin/create/create', [
             'title'       => $title,
             'title_post'  => $title_post,
             'content'     => $content,

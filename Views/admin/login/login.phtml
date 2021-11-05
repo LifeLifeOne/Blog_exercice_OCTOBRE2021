@@ -1,0 +1,55 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Se connecter au panel administrateur</h1>
+    <hr>
+
+    <div class="card rounded shadow mx-auto mt-5" style="width: 50vw">
+
+        <!-- FORMULAIRE -->
+        <form class="row mt-3 d-flex justify-content-center" method="POST">
+
+            <!-- Email  -->
+            <div class="mb-3 row">
+                <label for="email" class="">Email:</label>
+                <div>
+                    <input type="text" name="email" class="form-control" id="email" placeholder="email@exemple.com"  autocomplete="off">
+
+                    <!-- ERREUR -->
+                    <div class="container-msg">
+                        <?php if(!empty($message['error']['email'])): ?>
+                            <span class="text-danger">
+                            <?php foreach($message as $key => $msg): ?>
+                                * <?= $msg['email'] ?>
+                            <?php endforeach ?>
+                            </span>
+                        <?php endif ?>
+                    </div>     
+                </div>
+            </div>
+
+            <!-- Password  -->
+            <div class="mb-3 row">
+                <label for="password" class="">Mot de passe:</label>
+                <div>
+                    <input type="password" name="password" class="form-control" id="password">
+
+                    <!-- ERREUR -->
+                    <div class="container-msg">
+                        <?php if(!empty($message['error']['password'])): ?>
+                            <span class="text-danger">
+                            <?php foreach($message as $key => $msg): ?>
+                                * <?= $msg['password'] ?>
+                            <?php endforeach ?>
+                            </span>
+                        <?php endif ?>
+                    </div>     
+                </div>
+            </div>
+
+            <!-- Submit  -->
+            <div class="col-auto">
+                <button type="submit" name="login" class="btn btn-primary mb-3">Connexion</button>
+            </div>
+        </form>
+    </div>
+
+</div>
