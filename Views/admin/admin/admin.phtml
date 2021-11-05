@@ -45,7 +45,7 @@
                         <!-- EDITION ARTICLE  -->
                         <a href="index.php?page=edit&id=<?= htmlspecialchars($post['id']) ?>" class="link-warning mx-1" title="Modification de l'article"><i class="fas fa-edit fs-3"></i></a>
                         <!-- SUPPRESSION ARTICLE  -->
-                        <button data-bs-toggle="modal" data-bs-target="#delete-modal-<?= intval($post['id']) ?>" class="text-danger border-0 bg-transparent" title="Suppression de l'article"><i class="fas fa-trash fs-1"></i></button>
+                        <button data-bs-toggle="modal" data-bs-target="#delete-modal-<?= intval($post['id']) ?>" class="text-danger border-0 bg-transparent" title="Suppression de l'article"><i class="fas fa-trash fs-3"></i></button>
 
                         <!-- Modal -->
                         <div class="modal fade" id="delete-modal-<?= intval($post['id']) ?>" tabindex="-1" aria-labelledby="delete-confirm" aria-hidden="true">

@@ -127,32 +127,28 @@ class FrontController
     
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $isValid = false;
-                $message['error']['email'] = 'Email invalide';
+                $message['error']['admin'] = 'Email et Mot de passe invalide';
             }
             if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password)) {
                 $isValid = false;
-                $message['error']['password'] = 'Mot de passe invalide';
+                $message['error']['admin'] = 'Email et Mot de passe invalide';
             }
 
             if($isValid) {
                 $req = new Users;
                 $user = $req->connectionAdmin($email, $password);
 
-                if($user):
-
+                if($user) {
                     if (password_verify($password, $user['password'])) {
-                        session_start();
+
                         $_SESSION['email'] = $user['email'];
                         $_SESSION['username'] = $user['username'];
                         Https::redirect('index.php?page=admin');
+                    } 
 
-                    } else {
-                        $message['error']['both'] = 'Email et/ou Mot de passe invalide';
-                    }
-
-                else:
-                    $message['error']['both'] = 'Email et/ou Mot de passe invalide';
-                endif;
+                } else {
+                    $message['error']['admin'] = 'Email et Mot de passe invalide';
+                }
 
             } // End if($isValid)
 

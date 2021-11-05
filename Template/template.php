@@ -1,3 +1,7 @@
+<?php 
+(session_status() == PHP_SESSION_NONE) ? session_start() : '';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -51,7 +55,7 @@
                     <li>
                         <a href="index.php?page=login" class="btn btn-danger <?= ($_GET['page'] == 'admin') ? 'disabled' : '' ?>"><i class="fas fa-lock me-2"></i> Administration</a>
                     </li>
-                    <?php if(isset($_SESSION['email'])): ?>
+                    <?php if(!empty($_SESSION)): ?>
                     <li>
                         <a href="index.php?page=logout" class="btn btn-dark ms-2"><i class="fas fa-sign-out-alt"></i></a>
                     </li>

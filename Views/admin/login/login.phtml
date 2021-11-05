@@ -1,28 +1,17 @@
 <div class="container mt-5">
-    <h1 class="text-center mb-5">Se connecter au panel administrateur</h1>
+    <h1 class="text-center mb-5">Espace Administration</h1>
     <hr>
 
-    <div class="card rounded shadow mx-auto mt-5" style="width: 50vw">
+    <div class="card rounded shadow mx-auto mt-5 p-3" style="width: 300px">
 
         <!-- FORMULAIRE -->
         <form class="row mt-3 d-flex justify-content-center" method="POST">
 
             <!-- Email  -->
             <div class="mb-3 row">
-                <label for="email" class="">Email:</label>
+                <label for="email" class="">Login:</label>
                 <div>
-                    <input type="text" name="email" class="form-control" id="email" placeholder="email@exemple.com"  autocomplete="off">
-
-                    <!-- ERREUR -->
-                    <div class="container-msg">
-                        <?php if(!empty($message['error']['email'])): ?>
-                            <span class="text-danger">
-                            <?php foreach($message as $key => $msg): ?>
-                                * <?= $msg['email'] ?>
-                            <?php endforeach ?>
-                            </span>
-                        <?php endif ?>
-                    </div>     
+                    <input type="text" name="email" class="form-control" id="email" placeholder="email@exemple.com">
                 </div>
             </div>
 
@@ -32,16 +21,17 @@
                 <div>
                     <input type="password" name="password" class="form-control" id="password">
 
-                    <!-- ERREUR -->
+                    <!-- ERREUR BOTH -->
                     <div class="container-msg">
-                        <?php if(!empty($message['error']['password'])): ?>
+                        <?php if(!empty($message['error']['admin'])): ?>
                             <span class="text-danger">
                             <?php foreach($message as $key => $msg): ?>
-                                * <?= $msg['password'] ?>
+                                * <?= $msg['admin'] ?>
                             <?php endforeach ?>
                             </span>
                         <?php endif ?>
-                    </div>     
+                    </div>
+
                 </div>
             </div>
 
