@@ -113,12 +113,13 @@ class FrontController
      */
     public function login() {
         session_start();
+        isset($_SESSION['email']) ? Https::redirect('index.php?page=admin'): '';
+        
         $message  = [];
         $isValid  = true;
         $password = '';
         $email    = '';
 
-        isset($_SESSION['email']) ? Https::redirect('index.php?page=admin'): '';
         
         if (isset($_POST['login'])) {
     
@@ -178,6 +179,8 @@ class FrontController
      */
     public function admin() {
         session_start();
+        !isset($_SESSION['email']) ? Https::redirect('index.php?page=login') : '';
+
         $req   = new Posts;
         $posts = $req->findAllPosts();
         $total = $req->findTotalPosts();
@@ -197,6 +200,8 @@ class FrontController
      */
     public function edit() {
         session_start();
+        !isset($_SESSION['email']) ? Https::redirect('index.php?page=login') : '';
+        
         if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
             Https::redirect('index.php');
         }
@@ -268,6 +273,8 @@ class FrontController
      */
     public function create() {
         session_start();
+        !isset($_SESSION['email']) ? Https::redirect('index.php?page=login') : '';
+
         $message     = [];
         $author_id   = null;
         $category_id = null;
