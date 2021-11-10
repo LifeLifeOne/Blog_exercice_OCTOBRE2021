@@ -7,12 +7,16 @@ class Users extends Connect
 {
     private $db;
 
+    public function __construct()
+    {
+        $this->db = new Connect;
+    }
+
     public function connectionAdmin($email, $password)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
 
-        $db    = new Connect;
-        $query = $db->prepare($sql);
+        $query = $this->db->prepare($sql);
         $query->execute([
             ':email' => $email
         ]);

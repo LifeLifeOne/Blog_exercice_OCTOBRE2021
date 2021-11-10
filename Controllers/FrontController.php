@@ -114,7 +114,7 @@ class FrontController
     public function login() {
         session_start();
         isset($_SESSION['email']) ? Https::redirect('index.php?page=admin'): '';
-        
+
         $message  = [];
         $isValid  = true;
         $password = '';
@@ -140,6 +140,7 @@ class FrontController
                 $user = $req->connectionAdmin($email, $password);
 
                 if($user) {
+                    
                     if (password_verify($password, $user['password'])) {
 
                         $_SESSION['email'] = $user['email'];
