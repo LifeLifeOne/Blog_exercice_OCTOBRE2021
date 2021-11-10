@@ -63,9 +63,8 @@ class FrontController
         $message  = [];
         $nickname = null;
 
-        if (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) {
-            Https::redirect('index.php');
-        }
+        (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) ? Https::redirect('index.php') : '';
+        
 
         $id             = intval($_GET['id']);
         $req            = new Posts;
@@ -166,16 +165,6 @@ class FrontController
     }
 
     /**
-     * PAGE LOGOUT
-     */
-    public function logout() {
-        session_start();
-        session_destroy();
-        Https::redirect('index.php');
-    }
-
-
-    /**
      * PAGE D'ADMINISTRATION
      */
     public function admin() {
@@ -194,6 +183,15 @@ class FrontController
             'total' => $total
         ]);
 
+    }
+
+    /**
+     * PAGE LOGOUT
+     */
+    public function logout() {
+        session_start();
+        session_destroy();
+        Https::redirect('index.php');
     }
 
     /**
