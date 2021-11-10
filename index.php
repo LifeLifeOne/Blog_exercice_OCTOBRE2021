@@ -3,7 +3,7 @@ use App\Autoloader;
 use App\Core\Https;
 use App\Controllers\FrontController;
 
-require_once '../Autoloader.php';
+require_once './Autoloader.php';
 Autoloader::register();
 
 $router = new FrontController;

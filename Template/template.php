@@ -23,7 +23,7 @@
     <link href="https://bootswatch.com/5/cosmo/bootstrap.min.css" rel="stylesheet">
     <!-- MY CSS -->
     <link
-    href="../Assets/css/style.css"
+    href="./Assets/css/style.css"
     rel="stylesheet"
     />
 </head>
@@ -68,14 +68,14 @@
 
     <!-- MAIN  -->
     <main>
-    <?= include "../views/$path"; ?> <!-- Appel de la vue -->
+    <?= include "./views/$path"; ?> <!-- Appel de la vue -->
     </main>
 
     <!-- BootStrap  -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <!-- My JS  -->
-    <script src="../Assets/js/app.js"></script>
+    <script src="./Assets/js/app.js"></script>
 </body>
 </html>
 

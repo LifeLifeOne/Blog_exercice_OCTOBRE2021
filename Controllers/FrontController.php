@@ -14,7 +14,7 @@ class FrontController
 
         extract($array);
         $path = $path.".phtml";
-        require '../Template/template.php';
+        require './Template/template.php';
     }
 
     /**
