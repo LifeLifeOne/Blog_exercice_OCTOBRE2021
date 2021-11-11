@@ -181,7 +181,7 @@ class Posts extends Connect
 
         $sql = 'UPDATE posts 
                 SET 
-                title_post  = :title,
+                title       = :title,
                 content     = :content,
                 category_id = :category_id,
                 author_id   = :author_id,
