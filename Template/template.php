@@ -68,7 +68,7 @@
 
     <!-- MAIN  -->
     <main>
-    <?= include "./views/$path"; ?> <!-- Appel de la vue -->
+    <?= include "./views/$path" ?> <!-- Appel de la vue -->
     </main>
 
     <!-- BootStrap  -->

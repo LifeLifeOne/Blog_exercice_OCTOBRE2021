@@ -1,21 +1,11 @@
 <?php 
 namespace App\Controllers;
 
-use App\Core\ {Connect, Https};
+use App\Core\ {Connect, Render, Https};
 use App\Models\ {Posts, Users};
 
-class FrontController 
+class FrontController extends Render
 {
-
-    /**
-     * FONCTION RENDER 
-     */
-    public function render(string $path, $array = []) {
-
-        extract($array);
-        $path = $path.".phtml";
-        require './Template/template.php';
-    }
 
     /**
      * FONCTION QUI SECURISE LES ENTREES D'INPUTS / TEXTAREAS
@@ -30,7 +20,7 @@ class FrontController
     }
 
     /**
-     * FONCTION 'DD' QUI REMPLACE LE VAR_DUMP
+     * FONCTION 'DD' QUI REMPLACE LE VAR_DUMP (PROVISOIRE)
      */
     public function dd($data) {
         echo '<pre 
