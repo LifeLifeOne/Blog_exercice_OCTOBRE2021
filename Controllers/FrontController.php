@@ -50,6 +50,7 @@ class FrontController extends Render
      * POST PAGE
      */
     public function post() {
+        session_start();
         $message  = [];
         $nickname = null;
 
@@ -71,15 +72,18 @@ class FrontController extends Render
             if(strlen($nickname) == 0) {
                 $isValid = false;
                 $message['error'] = "Choisissez un pseudo";
-            }
 
-            if(strlen($comment) == 0) {
+            } else if(strlen($nickname) < 3) {
+                $isValid = false;
+                $message['error'] = "Votre pseudo doit faire au moins 3 caractères";
+
+            } else if(strlen($comment) == 0) {
                 $isValid = false;
                 $message['error'] = "Votre commentaire est vide";
             }
             if($isValid) {
                 $add = $req->addComment($id, $nickname, $comment);
-                $message['success'] = "Commentaire envoyé !";
+                $_SESSION['success'] = "Commentaire envoyé !";
                 Https::redirect('index.php?page=post&id='.$id);
             }
             

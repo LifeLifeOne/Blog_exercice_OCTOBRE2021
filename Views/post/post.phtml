@@ -60,16 +60,12 @@
                     <?php endif ?>
 
                     <!-- MESSAGE SUCCESS  -->
-                    <?php if(!empty($message['success'])): ?>
+                    <?php if(array_key_exists('success', $_SESSION)): ?>
                     <div class="alert alert-success text-center" role="alert">
-
-                        <?php foreach($message as $key => $msg): ?>
-                            <?= $msg ?>
-                        <?php endforeach ?>
-
+                        <?= $_SESSION['success'] ?>
                     </div>
                     <?php endif ?>
-
+                    
                 </div>
 
                 <!-- Input Pseudo -->
@@ -93,3 +89,4 @@
     </div>
 
 </div>
+<?php unset($_SESSION['success']); ?>
