@@ -19,4 +19,11 @@ class Autoloader
             require __DIR__ . '/' . $class . '.php'; 
         }
     }
+
+    static function dd($data) {
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';  
+        die();
+    }
 }

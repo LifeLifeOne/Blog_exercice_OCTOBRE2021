@@ -44,49 +44,40 @@
             <hr>
             
             <!-- FORMULAIRE  -->
-            <form action="index.php?page=post&id=<?= htmlspecialchars($id) ?>" method="POST">
+            <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="POST">
                 
                 <div class="container-msg my-2">
 
-                    <!-- MESSAGE ERRORS  -->
-                    <?php if(!empty($message['error'])): ?>
-                    <div class="alert alert-danger text-center" id="" role="alert">
-
-                        <?php foreach($message as $key => $msg): ?>
-                            <?= $msg ?>
-                        <?php endforeach ?>
-
-                    </div>
-                    <?php endif ?>
-
                     <!-- MESSAGE SUCCESS  -->
-                    <?php if(array_key_exists('success', $_SESSION)): ?>
-                    <div class="alert alert-success text-center" role="alert">
-                        <?= $_SESSION['success'] ?>
+                    <?php if(isset($_SESSION['success']) && !empty($_SESSION['success'])): ?>
+                    <div class="alert alert-success text-center" id="js-success" role="alert">
+                        <?= $commentInstance->getSuccessFeedback('addSuccess') ?>
                     </div>
                     <?php endif ?>
-                    
+
                 </div>
 
                 <!-- Input Pseudo -->
-                <div class="mb-3">
+                <div class="mb-2">
                     <input type="text" name="nickname" class="form-control" placeholder="Choisissez un pseudo" value="<?= (isset($_POST['nickname'])) ? htmlspecialchars($_POST['nickname']) : '' ?>">
                 </div>
 
-                <!-- TextArea Commentaire  -->
-                <div class="mb-3">
+                <!-- Textarea Commentaire  -->
+                <div>
                     <textarea name="comment" class="form-control" rows="2" placeholder="Votre commentaire..."><?= (isset($_POST['comment'])) ? htmlspecialchars($_POST['comment']) : '' ?></textarea>
+
+                    <!-- MESSAGE ERROR  -->
+                    <div class="text-center" style="min-height: 25px">
+                        <?= $commentInstance->getInvalidFeedback('commentError') ?>
+                    </div>
                 </div>
                 
                 <!-- Bouton d'envoi -->
-                <div class="text-center">
-                    <button type="submit" name="submit" class="btn btn-dark">Envoyer</button>
-                
-                <!-- Message d'erreur / success  -->
+                <div class="text-center mt-2">
+                    <button type="submit" name="addComment" class="btn btn-dark">Envoyer</button>
                 </div>
             </form>
         </div>
     </div>
 
 </div>
-<?php unset($_SESSION['success']); ?>

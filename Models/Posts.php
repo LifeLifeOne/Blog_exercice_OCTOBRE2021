@@ -2,9 +2,11 @@
 namespace App\Models;
 
 use App\Core\Connect;
+use App\Traits\Notification;
 
 class Posts extends Connect
 {
+    use Notification;
     private $db;
 
     public function __construct()
@@ -88,7 +90,7 @@ class Posts extends Connect
     }
 
     /**
-     * LE CHIFFRE TOTAL DES COMMENTAIRES LIES A L'ARTICLE
+     * LE NOMBRE TOTAL DE COMMENTAIRES LIES A L'ARTICLE
      */
     public function findTotalComments($id) {
 
