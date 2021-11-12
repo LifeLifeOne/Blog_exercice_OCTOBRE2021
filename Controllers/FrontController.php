@@ -40,7 +40,7 @@ class FrontController extends Render
         $posts = $req->findAllPosts();// Récupération de tous les articles
         
         $title = "Blog - Page d'accueil";
-        $this->render('home/home', [
+        parent::render('home/home', [
             'title' => $title,
             'posts' => $posts
         ]);
@@ -86,7 +86,7 @@ class FrontController extends Render
         }
         
         $title = "Article - ".$post['title'];
-        $this->render('post/post', [
+        parent::render('post/post', [
             'title'          => $title,
             'id'             => $id,
             'post'           => $post,
@@ -146,7 +146,7 @@ class FrontController extends Render
         } // End if(isset($_POST['login']))
         
         $title = "Se connecter";
-        $this->render('admin/login/login', [
+        parent::render('admin/login/login', [
             'title'   => $title,
             'email'   => $email,
             'password'=> $password,
@@ -167,7 +167,7 @@ class FrontController extends Render
         // $this->dd($total);
 
         $title = "Panel d'administration";
-        $this->render('admin/admin/admin', [
+        parent::render('admin/admin/admin', [
             'title' => $title,
             'posts' => $posts,
             'total' => $total
@@ -242,7 +242,7 @@ class FrontController extends Render
         }
 
         $title = "Administration - Modification";
-        $this->render('admin/edit/edit', [
+        parent::render('admin/edit/edit', [
             'id'          => $id,
             'title'       => $title,
             'title_post'  => $title_post,
@@ -309,7 +309,7 @@ class FrontController extends Render
         }
 
         $title = "Administration - Création";
-        $this->render('admin/create/create', [
+        parent::render('admin/create/create', [
             'title'       => $title,
             'title_post'  => $title_post,
             'content'     => $content,
