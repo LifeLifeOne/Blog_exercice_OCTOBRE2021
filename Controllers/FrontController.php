@@ -50,7 +50,6 @@ class FrontController extends Render
             // OK ! 
             if(Form::validate($_POST, ['nickname', 'comment'])) {
                 
-
                 if (!$commentInstance->checkErrorsNotification("commentError")) {
     
                     $commentInstance->addComment($_GET['id'], $_POST['nickname'], $_POST['comment']);
