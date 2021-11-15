@@ -5,17 +5,19 @@ namespace App\Services;
 class ValidationManager
 {
     private static $messages = [
-        'required'    => ' est obligatoire',
-        'email'       => ' n\'est pas un email valide',
-        'password'    => ' incorrecte',
-        'minInput'    => ' doit contenir au moins 3 caractères',
-        'maxInput'    => ' doit contenir au plus 30 caractères',
-        'minTextarea' => ' doit contenir au moins 5 caractères',
-        'maxTextarea' => ' doit contenir au plus 1000 caractères'
+        'required'        => 'Le champ est obligatoire',
+        'email'           => 'L\'email n\'est pas valide',
+        'password'        => 'Mot de passe incorrecte',
+        'passwordConfirm' => 'Les mots de passe ne correspondent pas',
+        'passwordVerify'  => 'Connexion refusée !',
+        'minInput'        => 'Le champ doit contenir au moins 3 caractères',
+        'maxInput'        => 'Le champ doit contenir au plus 30 caractères',
+        'minTextarea'     => 'Le champ doit contenir au moins 5 caractères',
+        'maxTextarea'     => 'Le champ doit contenir au plus 1000 caractères'
     ];
     
     public static function message(string $field, string $rule): string
     {
-        return $field.self::$messages[$rule];
+        return self::$messages[$rule];
     }
 }

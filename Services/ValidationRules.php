@@ -21,6 +21,21 @@ class ValidationRules
         return $field ? true : false;
     }
 
+    public static function passwordConfirm(string $field, string $field2): bool
+    {
+        return $field == $field2 ? true : false;
+    }
+
+    public static function passwordVerify(string $field, string $field2): bool
+    {
+        return password_verify($field, $field2) ? true : false;
+    }
+
+    public static function phone(string $field): bool
+    {
+        return preg_match("/^[0-9]{10}$/", $field) ? true : false;
+    }
+
     public static function minInput(string $field): bool
     {
         return strlen($field) < 3 ? false : true;

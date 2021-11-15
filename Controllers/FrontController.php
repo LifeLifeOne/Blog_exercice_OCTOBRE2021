@@ -44,18 +44,18 @@ class FrontController extends Render
 
             FormValidator::secure($_POST['pseudo']);
             FormValidator::secure($_POST['comment']);
-        
+            
             $validation = FormValidator::isValid($_POST, [
-                'pseudo' => 'required|minInput|maxInput',
+                'pseudo'   => 'required|minInput|maxInput',
                 'comment'  => 'required|minTextarea|maxTextarea'
             ]);
-
+            
             if($validation !== true) {
                 $commentInstance->setErrorNotification($validation);
             }
-
+            
             if (!$commentInstance->checkErrorsNotification("pseudo") && !$commentInstance->checkErrorsNotification("comment")) {
-
+                
                 $commentInstance->addComment($_GET['id'], $_POST['pseudo'], $_POST['comment']);
                 $commentInstance->setSuccessNotification("addSuccess", "Votre commentaire a bien été ajouté");
                 Https::redirect('index.php?page=post&id=' . $_GET['id']);
@@ -90,7 +90,7 @@ class FrontController extends Render
             FormValidator::secure($_POST['password']);
 
             $validation = FormValidator::isValid($_POST, [
-                'email' => 'required|email',
+                'email'     => 'required|email',
                 'password'  => 'required|password'
             ]);
 
@@ -98,7 +98,6 @@ class FrontController extends Render
                 $userInstance->setErrorNotification($validation);
             }
             
-            var_dump($_POST);
             if (!$userInstance->checkErrorsNotification("email") && !$userInstance->checkErrorsNotification("password")) {
 
 
@@ -110,11 +109,9 @@ class FrontController extends Render
                         $_SESSION['email']    = $isAdmin['email'];
                         $_SESSION['username'] = $isAdmin['username'];
                         Https::redirect('index.php?page=admin');
-                    } 
+                    }
                 }
-
             }
-
         }
         // if (isset($_POST['login'])) {
     
