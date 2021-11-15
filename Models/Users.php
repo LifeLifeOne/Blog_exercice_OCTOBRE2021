@@ -2,9 +2,10 @@
 namespace App\Models;
 
 use App\Core\Connect;
-
+use App\Traits\Notification;
 class Users extends Connect
 {
+    use Notification;
     private $db;
 
     public function __construct()

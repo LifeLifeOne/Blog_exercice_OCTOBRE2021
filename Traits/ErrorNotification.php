@@ -5,9 +5,9 @@ namespace App\Traits;
 trait ErrorNotification
 {
 
-    public function setErrorNotification(String $key, String $message): void
+    public function setErrorNotification(array $errors): void
     {
-        $_SESSION['errors'][$key] = $message;
+        $_SESSION['errors'] = $errors;
     }
 
     private function getErrorNotification(String $key): string

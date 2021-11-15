@@ -59,7 +59,12 @@
 
                 <!-- Input Pseudo -->
                 <div class="mb-2">
-                    <input type="text" name="nickname" class="form-control" placeholder="Choisissez un pseudo" value="<?= (isset($_POST['nickname'])) ? htmlspecialchars($_POST['nickname']) : '' ?>">
+                    <input type="text" name="pseudo" class="form-control" placeholder="Choisissez un pseudo" value="<?= (isset($_POST['pseudo'])) ? htmlspecialchars($_POST['pseudo']) : '' ?>">
+
+                    <!-- MESSAGE ERROR  -->
+                    <div class="text-center" style="min-height: 25px">
+                        <?= $commentInstance->getInvalidFeedback('pseudo') ?>
+                    </div>
                 </div>
 
                 <!-- Textarea Commentaire  -->
@@ -68,7 +73,7 @@
 
                     <!-- MESSAGE ERROR  -->
                     <div class="text-center" style="min-height: 25px">
-                        <?= $commentInstance->getInvalidFeedback('commentError') ?>
+                        <?= $commentInstance->getInvalidFeedback('comment') ?>
                     </div>
                 </div>
                 

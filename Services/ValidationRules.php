@@ -21,22 +21,22 @@ class ValidationRules
         return $field ? true : false;
     }
 
-    public static function min_input(string $field): bool
+    public static function minInput(string $field): bool
     {
         return strlen($field) < 3 ? false : true;
     }
 
-    public static function max_input(string $field): bool
+    public static function maxInput(string $field): bool
     {
         return strlen($field) > 30 ? false : true;
     }
 
-    public static function min_textarea(string $field): bool
+    public static function minTextarea(string $field): bool
     {
         return strlen($field) < 5 ? false : true;
     }
 
-    public static function max_textarea(string $field): bool
+    public static function maxTextarea(string $field): bool
     {
         return strlen($field) > 1000 ? false : true;
     }

@@ -1,8 +1,9 @@
 <?php 
 namespace App\Controllers;
 
-use App\Core\ {Connect, Render, Https, Form};
-use App\Models\ {Posts, Users};
+use App\Core\ {Connect, Render, Https};
+use App\Models\ {Posts, Users, Comments};
+use App\Services\ {FormValidator, ValidationManager, ValidationRules};
 
 class FrontController extends Render
 {
@@ -29,36 +30,39 @@ class FrontController extends Render
         session_start();
 
         (!ctype_digit($_GET['id']) || !array_key_exists('id', $_GET)) ? Https::redirect('index.php') : '';
-    
-        $req            = new Posts;
-        $post           = $req->findPostById($_GET['id']);// Récupération des informations liées à l'article
-        $comments       = $req->findAllComments($_GET['id']);// Récupération des commentaires liés à l'article
-        $total_comments = $req->findTotalComments($_GET['id']);// Récupération du total de commentaires liés à l'article
+        
+        // Articles
+        $postsInstance  = new Posts;
+        $post           = $postsInstance->findPostById($_GET['id']);// Récupération des informations liées à l'article
 
-        $commentInstance = new Posts();
+        // Commentaires 
+        $commentInstance  = new Comments;
+        $comments          = $commentInstance->findAllComments($_GET['id']);// Récupération des commentaires liés à l'article
+        $total_comments    = $commentInstance->findTotalComments($_GET['id']);// Récupération du total de commentaires liés à l'article
 
         if (!empty($_POST) && isset($_POST['addComment'])) {
 
-            $_POST['nickname'] = Form::secure($_POST['nickname']);
-            $_POST['comment']  = Form::secure($_POST['comment']);
-            
-            // NOPE !
-            if(!Form::validate($_POST, ['nickname', 'comment'])) {
-                $commentInstance->setErrorNotification("commentError", "Pseudo / Commentaire obligatoire"); 
+            FormValidator::secure($_POST['pseudo']);
+            FormValidator::secure($_POST['comment']);
+        
+            $validation = FormValidator::isValid($_POST, [
+                'pseudo' => 'required|minInput|maxInput',
+                'comment'  => 'required|minTextarea|maxTextarea'
+            ]);
+
+            if($validation !== true) {
+                $commentInstance->setErrorNotification($validation);
             }
-            
-            // OK ! 
-            if(Form::validate($_POST, ['nickname', 'comment'])) {
-                
-                if (!$commentInstance->checkErrorsNotification("commentError")) {
-    
-                    $commentInstance->addComment($_GET['id'], $_POST['nickname'], $_POST['comment']);
-                    $commentInstance->setSuccessNotification("addSuccess", "Votre commentaire a bien été ajouté");
-                    Https::redirect('index.php?page=post&id=' . $_GET['id']);
-                }
+
+            if (!$commentInstance->checkErrorsNotification("pseudo") && !$commentInstance->checkErrorsNotification("comment")) {
+
+                $commentInstance->addComment($_GET['id'], $_POST['pseudo'], $_POST['comment']);
+                $commentInstance->setSuccessNotification("addSuccess", "Votre commentaire a bien été ajouté");
+                Https::redirect('index.php?page=post&id=' . $_GET['id']);
+
             }
-            
         }
+    
         
         $title = "Article - ".$post['title'];
         parent::render('post/post', [
@@ -77,13 +81,41 @@ class FrontController extends Render
     public function login() {
         session_start();
         isset($_SESSION['email']) ? Https::redirect('index.php?page=admin'): '';
+        $userInstance = new Users;
 
-        $message  = [];
-        $isValid  = true;
-        $password = '';
-        $email    = '';
+        if (!empty($_POST) && isset($_POST['login'])) {
 
-        
+
+            FormValidator::secure($_POST['login']);
+            FormValidator::secure($_POST['password']);
+
+            $validation = FormValidator::isValid($_POST, [
+                'email' => 'required|email',
+                'password'  => 'required|password'
+            ]);
+
+            if($validation !== true) {
+                $userInstance->setErrorNotification($validation);
+            }
+            
+            var_dump($_POST);
+            if (!$userInstance->checkErrorsNotification("email") && !$userInstance->checkErrorsNotification("password")) {
+
+
+                $isAdmin = $userInstance->connectionAdmin($_POST['email'], $_POST['password']);
+
+                if($isAdmin) {
+                    if (password_verify($_POST['password'], $isAdmin['password'])) {
+
+                        $_SESSION['email']    = $isAdmin['email'];
+                        $_SESSION['username'] = $isAdmin['username'];
+                        Https::redirect('index.php?page=admin');
+                    } 
+                }
+
+            }
+
+        }
         // if (isset($_POST['login'])) {
     
         //     $email    = $this->validate($_POST['email']);
@@ -121,10 +153,8 @@ class FrontController extends Render
         
         $title = "Se connecter";
         parent::render('admin/login/login', [
-            'title'   => $title,
-            'email'   => $email,
-            'password'=> $password,
-            'message' => $message
+            'title'        => $title,
+            'userInstance' => $userInstance
         ]);
     }
 

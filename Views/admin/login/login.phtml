@@ -12,6 +12,11 @@
                 <label for="email" class="">Login:</label>
                 <div>
                     <input type="text" name="email" class="form-control" id="email" placeholder="email@exemple.com">
+
+                    <!-- MESSAGE ERROR  -->
+                    <div class="text-center" style="min-height: 25px">
+                        <?= $userInstance->getInvalidFeedback('email') ?>
+                    </div>
                 </div>
             </div>
 
@@ -21,15 +26,9 @@
                 <div>
                     <input type="password" name="password" class="form-control" id="password">
 
-                    <!-- ERREUR BOTH -->
-                    <div class="container-msg">
-                        <?php if(!empty($message['error']['admin'])): ?>
-                            <span class="text-danger">
-                            <?php foreach($message as $key => $msg): ?>
-                                * <?= $msg['admin'] ?>
-                            <?php endforeach ?>
-                            </span>
-                        <?php endif ?>
+                     <!-- MESSAGE ERROR  -->
+                     <div class="text-center" style="min-height: 25px">
+                        <?= $userInstance->getInvalidFeedback('password') ?>
                     </div>
 
                 </div>
